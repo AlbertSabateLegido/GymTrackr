@@ -57,12 +57,6 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        MySQLiteOpenHelper mySQLiteOpenHelper = new MySQLiteOpenHelper(getApplicationContext());
-        //mySQLiteOpenHelper.putRoutine("R1",DayOfTheWeek.MONDAY.toString());
-        //mySQLiteOpenHelper.putExercice("E1",10,3);
-        //mySQLiteOpenHelper.putJRE("R1","E1");
-        mySQLiteOpenHelper.get();
-
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
