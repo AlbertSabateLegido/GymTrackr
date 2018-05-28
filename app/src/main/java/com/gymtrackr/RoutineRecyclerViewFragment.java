@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoutinesListFragment extends Fragment {
+public class RoutineRecyclerViewFragment extends Fragment {
 
     private List<Routine> routinesList;
 
@@ -23,24 +23,20 @@ public class RoutinesListFragment extends Fragment {
         routinesList.add(new Routine("Routine 1"));
         routinesList.add(new Routine("Routine 2"));
         routinesList.add(new Routine("Routine 3"));
-        System.out.println("RoutinesListFragment");
+        System.out.println("RoutineRecyclerViewFragment");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_routines_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
 
         RoutinesAdapter routinesAdapter = new RoutinesAdapter(routinesList);
-        RecyclerView recyclerView = view.findViewById(R.id.rvRoutines);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(routinesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity().getApplicationContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this.getActivity().getApplicationContext()));
-
-        routinesList.add(new Routine("New Routine"));
-
-        routinesAdapter.notifyDataSetChanged();
 
         return view;
     }

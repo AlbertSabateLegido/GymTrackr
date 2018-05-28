@@ -26,15 +26,12 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyView
     public RoutinesAdapter(List<Routine> routinesList) {
         super();
         this.routinesList = routinesList;
-        System.out.println("RoutinesAdapter");
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.routine_row, parent, false);
-
-        System.out.println("OnCreateViewHolder");
 
         return new MyViewHolder(view);
     }
@@ -44,8 +41,6 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyView
         Routine routine = routinesList.get(position);
         holder.tvName.setText(routine.getName());
         holder.tvDayOfTheWeek.setText(routine.getDayOfTheWeek().toString());
-
-        System.out.println("OnBindViewHolder, " + position);
     }
 
     @Override

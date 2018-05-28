@@ -1,13 +1,21 @@
 package com.gymtrackr;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Exercise {
 
     private String name;
-    private ArrayList<String> musclesInvolved;
+    private List<String> musclesInvolved;
     private int reps;
     private int series;
+
+    public Exercise (String name) {
+        this.name = name;
+        musclesInvolved = new ArrayList<>();
+        reps = 0;
+        series = 0;
+    }
 
     public String getName() {
         return name;
@@ -17,7 +25,7 @@ public class Exercise {
         this.name = name;
     }
 
-    public ArrayList<String> getMusclesInvolved() {
+    public List<String> getMusclesInvolved() {
         return musclesInvolved;
     }
 
