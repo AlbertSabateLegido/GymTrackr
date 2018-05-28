@@ -15,8 +15,6 @@ import java.util.List;
 public class RoutinesListFragment extends Fragment {
 
     private List<Routine> routinesList;
-    private RoutinesAdapter routinesAdapter;
-    private RecyclerView recyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,13 +31,12 @@ public class RoutinesListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_routines_list, container, false);
 
-        recyclerView = view.findViewById(R.id.rvRoutines);
-
-        routinesAdapter = new RoutinesAdapter(routinesList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getActivity().getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        RoutinesAdapter routinesAdapter = new RoutinesAdapter(routinesList);
+        RecyclerView recyclerView = view.findViewById(R.id.rvRoutines);
         recyclerView.setAdapter(routinesAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity().getApplicationContext()));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this.getActivity().getApplicationContext()));
 
         routinesList.add(new Routine("New Routine"));
 

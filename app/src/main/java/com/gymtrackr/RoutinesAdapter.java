@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyViewHolder> {
@@ -23,6 +24,7 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyView
     }
 
     public RoutinesAdapter(List<Routine> routinesList) {
+        super();
         this.routinesList = routinesList;
         System.out.println("RoutinesAdapter");
     }
