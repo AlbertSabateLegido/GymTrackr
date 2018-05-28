@@ -16,4 +16,37 @@ public class Routine {
         this.muscleGroup = new ArrayList<>();
         this.dayOfTheWeek = DayOfTheWeek.NONE;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<Exercise> getExercises() {
+        return exercises;
+    }
+
+    public void setExercises(ArrayList<Exercise> exercises) {
+        this.exercises = exercises;
+    }
+
+    public ArrayList<String> getMuscleGroup() {
+        return muscleGroup;
+    }
+
+    public void setMuscleGroup(ArrayList<String> muscleGroup) {
+        this.muscleGroup = muscleGroup;
+    }
+
+    public DayOfTheWeek getDayOfTheWeek() {
+        return dayOfTheWeek;
+    }
+
+    public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
+        this.dayOfTheWeek = dayOfTheWeek;
+    }
+
 }
