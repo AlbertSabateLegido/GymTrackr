@@ -1,9 +1,6 @@
 package com.gymtrackr;
 
-import android.content.Context;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -20,8 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.PopupMenu;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.gymtrackr.Persistence.MySQLiteOpenHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        MySQLiteOpenHelper mySQLiteOpenHelper = new MySQLiteOpenHelper(getApplicationContext());
+        //mySQLiteOpenHelper.putRoutine("R1",DayOfTheWeek.MONDAY.toString());
+        //mySQLiteOpenHelper.putExercice("E1",10,3);
+        //mySQLiteOpenHelper.putJRE("R1","E1");
+        mySQLiteOpenHelper.get();
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
