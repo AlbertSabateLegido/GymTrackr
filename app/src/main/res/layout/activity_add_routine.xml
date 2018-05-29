@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddRoutine">
+
+    <TextView
+        android:id="@+id/textViewRoutineName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="top|start"
+        android:text="@string/label_name" />
+
+    <EditText
+        android:id="@+id/editTextRoutineName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewRoutineName"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:ems="10"
+        android:inputType="textCapSentences"
+        android:hint="Optional" />
+
+    <TextView
+        android:id="@+id/textViewDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="top|start"
+        android:text="@string/label_day"
+        android:layout_below="@+id/editTextRoutineName"/>
+
+
+    <Spinner
+        android:id="@+id/spinnerDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textViewDay" />
+
+
+</RelativeLayout>

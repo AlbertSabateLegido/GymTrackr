@@ -1,5 +1,6 @@
 package com.gymtrackr;
 
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,36 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Routine routine = routinesList.get(position);
         holder.tvName.setText(routine.getName());
-        holder.tvDayOfTheWeek.setText(routine.getDayOfTheWeek().toString());
+        String dayToShow;
+        switch (routine.getDayOfTheWeek()){
+            case NONE:
+                holder.tvDayOfTheWeek.setText(R.string.days_none);
+                break;
+            case MONDAY:
+                holder.tvDayOfTheWeek.setText(R.string.days_monday);
+                break;
+            case TUESDAY:
+                holder.tvDayOfTheWeek.setText(R.string.days_tuesday);
+                break;
+            case WEDNESDAY:
+                holder.tvDayOfTheWeek.setText(R.string.days_wednesday);
+                break;
+            case THURSDAY:
+                holder.tvDayOfTheWeek.setText(R.string.days_thursday);
+                break;
+            case FRIDAY:
+                holder.tvDayOfTheWeek.setText(R.string.days_friday);
+                break;
+            case SATURDAY:
+                holder.tvDayOfTheWeek.setText(R.string.days_saturday);
+                break;
+            case SUNDAY:
+                holder.tvDayOfTheWeek.setText(R.string.days_sunday);
+                break;
+            default:
+                holder.tvDayOfTheWeek.setText(R.string.days_none);
+                break;
+        }
     }
 
     @Override

@@ -41,9 +41,7 @@ public class Routine {
         this.muscleGroup = muscleGroup;
     }
 
-    public DayOfTheWeek getDayOfTheWeek() {
-        return dayOfTheWeek;
-    }
+    public DayOfTheWeek getDayOfTheWeek() { return dayOfTheWeek; }
 
     public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
         this.dayOfTheWeek = dayOfTheWeek;

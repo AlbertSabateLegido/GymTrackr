@@ -13,4 +13,20 @@
     <string name="days_friday">Friday</string>
     <string name="days_saturday">Saturday</string>
     <string name="days_sunday">Sunday</string>
+    <string name="days_none">Not set</string>
+
+    <string name="title_add_routine">New routine</string>
+    <string name="title_add_exercise">New exercise</string>
+
+    <string name="label_name">Name</string>
+    <string name="label_muscle_group">Muscle group(s)</string>
+    <string name="label_day">Day</string>
+
+    <string name="muscle_group_chest">Chest</string>
+    <string name="muscle_group_back">Back</string>
+    <string name="muscle_group_arms">Arms</string>
+    <string name="muscle_group_shoulders">Shoulders</string>
+    <string name="muscle_group_legs">Legs</string>
+    <string name="muscle_group_calves">Calves</string>
+    <string name="muscle_group_abs">Abs</string>
 </resources>

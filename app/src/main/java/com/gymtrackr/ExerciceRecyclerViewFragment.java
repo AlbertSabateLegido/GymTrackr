@@ -23,6 +23,9 @@ public class ExerciceRecyclerViewFragment extends Fragment {
         exerciseList.add(new Exercise("Exercice 1"));
         exerciseList.add(new Exercise("Exercice 2"));
         exerciseList.add(new Exercise("Exercice 3"));
+        exerciseList.add(new Exercise("Bench press"));
+        exerciseList.get(3).setReps(10);
+        exerciseList.get(3).setSeries(4);
 
     }
 

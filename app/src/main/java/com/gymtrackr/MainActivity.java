@@ -1,5 +1,8 @@
 package com.gymtrackr;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +17,9 @@ import android.widget.PopupMenu;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
+    private enum TabSelected {ROUTINES,EXERCISES};
+    TabSelected tabSelected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,28 +31,27 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.container,new RoutineRecyclerViewFragment());
         ft.commit();
+        tabSelected = TabSelected.ROUTINES;
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.addOnTabSelectedListener(this);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final Intent intentAddRoutine = new Intent(this, AddRoutine.class);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (tabSelected == TabSelected.ROUTINES){
+                    startActivity(intentAddRoutine);
+                }
+                else if (tabSelected == TabSelected.EXERCISES){
+
+                }
             }
-        });*/
+        });
 
     }
-
-    public void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.add_menu, popup.getMenu());
-        popup.show();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,12 +66,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.container,new RoutineRecyclerViewFragment());
             ft.commit();
+            tabSelected = TabSelected.ROUTINES;
         }
         if(tab.getPosition() == 1) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.container,new ExerciceRecyclerViewFragment());
             ft.commit();
-
+            tabSelected = TabSelected.EXERCISES;
         }
     }
 
