@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+import com.gymtrackr.Persistence.PersistenceManager;
+import com.gymtrackr.Persistence.PersistenceManagerImpl;
+
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
     private enum TabSelected {ROUTINES,EXERCISES};
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             }
         });
 
+        PersistenceManager persistenceManager = new PersistenceManagerImpl(getApplicationContext());
+        persistenceManager.getRoutines();
     }
 
     @Override

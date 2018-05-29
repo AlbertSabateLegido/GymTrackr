@@ -9,6 +9,9 @@ public class Routine {
     private ArrayList<String> muscleGroup;
     private DayOfTheWeek dayOfTheWeek;
 
+
+    public Routine() {}
+
     public Routine(String name) {
         // Creating a new routine without any exercise
         this.name = name;

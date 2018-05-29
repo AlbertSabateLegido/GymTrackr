@@ -10,22 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gymtrackr.Domain.Routine;
+import com.gymtrackr.Persistence.PersistenceManager;
+import com.gymtrackr.Persistence.PersistenceManagerImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RoutineRecyclerViewFragment extends Fragment {
 
+    private PersistenceManager persistenceManager;
     private List<Routine> routinesList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        routinesList = new ArrayList<>();
-        routinesList.add(new Routine("Routine 1"));
-        routinesList.add(new Routine("Routine 2"));
-        routinesList.add(new Routine("Routine 3"));
-        System.out.println("RoutineRecyclerViewFragment");
+        persistenceManager = new PersistenceManagerImpl(GymTrackr.getContext());
+        routinesList = persistenceManager.getRoutines();
     }
 
     @Override

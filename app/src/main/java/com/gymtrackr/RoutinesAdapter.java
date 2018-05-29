@@ -41,7 +41,8 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Routine routine = routinesList.get(position);
         holder.tvName.setText(routine.getName());
-        String dayToShow;
+        holder.tvDayOfTheWeek.setText(routine.getDayOfTheWeek().toString());
+        /*
         switch (routine.getDayOfTheWeek()){
             case NONE:
                 holder.tvDayOfTheWeek.setText(R.string.days_none);
@@ -70,7 +71,7 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyView
             default:
                 holder.tvDayOfTheWeek.setText(R.string.days_none);
                 break;
-        }
+        } */
     }
 
     @Override
