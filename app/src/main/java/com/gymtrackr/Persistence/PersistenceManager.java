@@ -8,7 +8,7 @@ public interface PersistenceManager {
 
     void putRoutine(Routine routine) throws InsertErrorThrowable;
 
-    void putExercice(Exercise exercise) throws InsertErrorThrowable;
+    void putExercise(Exercise exercise) throws InsertErrorThrowable;
 
     void putJRE(Routine routine) throws InsertErrorThrowable;
 

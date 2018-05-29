@@ -75,7 +75,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public void putExercice(String name,int repetitions,int series) throws InsertErrorThrowable {
+    public void putExercise(String name, int repetitions, int series) throws InsertErrorThrowable {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();

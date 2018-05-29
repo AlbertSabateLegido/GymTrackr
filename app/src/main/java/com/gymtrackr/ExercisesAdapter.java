@@ -9,9 +9,7 @@ import android.widget.TextView;
 import com.gymtrackr.Domain.Exercise;
 import com.gymtrackr.Domain.ExerciseList;
 
-import java.util.List;
-
-public class ExercicesAdapter extends RecyclerView.Adapter<ExercicesAdapter.MyViewHolder>{
+public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyViewHolder>{
 
     ExerciseList exerciseList;
 
@@ -26,7 +24,7 @@ public class ExercicesAdapter extends RecyclerView.Adapter<ExercicesAdapter.MyVi
         }
     }
 
-    public ExercicesAdapter(ExerciseList exerciseList) {
+    public ExercisesAdapter(ExerciseList exerciseList) {
         super();
         this.exerciseList = exerciseList;
     }
@@ -36,7 +34,7 @@ public class ExercicesAdapter extends RecyclerView.Adapter<ExercicesAdapter.MyVi
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.exercice_row, parent, false);
 
-        return new ExercicesAdapter.MyViewHolder(view);
+        return new ExercisesAdapter.MyViewHolder(view);
     }
 
     @Override

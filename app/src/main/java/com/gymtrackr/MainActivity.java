@@ -2,7 +2,6 @@ package com.gymtrackr;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +9,7 @@ import android.support.v7.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-
-import android.widget.PopupMenu;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
@@ -36,10 +32,10 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.addOnTabSelectedListener(this);
 
-        final Intent intentAddRoutine = new Intent(this, AddRoutine.class);
-        final Intent intentAddExercise = new Intent(this, AddExercise.class);
+        final Intent intentAddRoutine = new Intent(this, AddRoutineActivity.class);
+        final Intent intentAddExercise = new Intent(this, AddExerciseActivity.class);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         }
         if(tab.getPosition() == 1) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.container,new ExerciceRecyclerViewFragment());
+            ft.replace(R.id.container,new ExerciseRecyclerViewFragment());
             ft.commit();
             tabSelected = TabSelected.EXERCISES;
         }
@@ -79,11 +75,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-        return;
     }
 
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
-        return;
     }
 }

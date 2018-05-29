@@ -23,8 +23,8 @@ public class PersistenceManagerImpl implements PersistenceManager {
     }
 
     @Override
-    public void putExercice(Exercise exercise) throws InsertErrorThrowable {
-        mySQLiteOpenHelper.putExercice(exercise.getName(),exercise.getReps(),exercise.getSeries());
+    public void putExercise(Exercise exercise) throws InsertErrorThrowable {
+        mySQLiteOpenHelper.putExercise(exercise.getName(),exercise.getReps(),exercise.getSeries());
     }
 
     @Override

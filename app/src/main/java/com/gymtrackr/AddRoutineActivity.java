@@ -8,7 +8,7 @@ import android.widget.SpinnerAdapter;
 
 import java.util.ArrayList;
 
-public class AddRoutine extends AppCompatActivity {
+public class AddRoutineActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

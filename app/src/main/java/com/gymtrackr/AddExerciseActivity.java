@@ -1,6 +1,5 @@
 package com.gymtrackr;
 
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +8,7 @@ import android.widget.EditText;
 
 import com.gymtrackr.Domain.DomainController;
 
-public class AddExercise extends AppCompatActivity {
+public class AddExerciseActivity extends AppCompatActivity {
 
     private EditText exerciseName;
     private EditText exerciseSeries;
@@ -24,7 +23,7 @@ public class AddExercise extends AppCompatActivity {
         exerciseSeries = findViewById(R.id.editText2);
         exerciseReps = findViewById(R.id.editText3);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAddExercise);
+        FloatingActionButton fab = findViewById(R.id.fabAddExercise);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

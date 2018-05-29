@@ -2,7 +2,7 @@ package com.gymtrackr.Domain;
 
 public class DomainController {
     private static DomainController myDomainController = null;
-    ExerciseList exerciseList;
+    private ExerciseList exerciseList;
 
     private DomainController() {
         exerciseList = new ExerciseList();
