@@ -26,7 +26,7 @@ public class PersistenceManagerImpl implements PersistenceManager {
 
     @Override
     public List<Routine> getRoutines() {
-        List<List<String>> rawRoutinesList = mySQLiteOpenHelper.getRoutines();
+        List<List<String>> rawRoutinesList = mySQLiteOpenHelper.getTable(MySQLiteOpenHelper.ROUTINE_TABLE_NAME);
         List<Routine> routinesList = new ArrayList<>();
 
         for(List<String> rawRoutine:rawRoutinesList) {
@@ -41,7 +41,27 @@ public class PersistenceManagerImpl implements PersistenceManager {
 
     @Override
     public void putExercise(Exercise exercise) throws InsertErrorThrowable {
-        mySQLiteOpenHelper.putExercise(exercise.getName(),exercise.getReps(),exercise.getSeries());
+        mySQLiteOpenHelper.putExercise(exercise.getName(),String.valueOf(exercise.getReps()),
+                String.valueOf(exercise.getSeries()));
+    }
+
+    @Override
+    public List<Exercise> getExercises() {
+        List<List<String>> rawExercisesList = mySQLiteOpenHelper.getTable(MySQLiteOpenHelper.EXERCISE_TABLE_NAME);
+        List<Exercise> exercisesList = new ArrayList<>();
+
+        System.out.println(rawExercisesList.get(0).size());
+
+        for(List<String> rawExercise:rawExercisesList) {
+            Exercise exercise = new Exercise();
+            exercise.setName(rawExercise.get(0));
+            System.out.println(rawExercise.get(1));
+            exercise.setReps(Integer.parseInt(rawExercise.get(1)));
+            exercise.setSeries(Integer.parseInt(rawExercise.get(2)));
+            exercisesList.add(exercise);
+        }
+
+        return exercisesList;
     }
 
     @Override

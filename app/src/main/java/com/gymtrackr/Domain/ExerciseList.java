@@ -3,24 +3,25 @@ package com.gymtrackr.Domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class ExerciseList {
 
-    private ArrayList<Exercise> exercises;
+    private List<Exercise> exercises;
 
     public ExerciseList() {
         exercises = new ArrayList<>();
     }
 
-    public ExerciseList(ArrayList<Exercise> exercises) {
+    public ExerciseList(List<Exercise> exercises) {
         this.exercises = exercises;
     }
 
-    public ArrayList<Exercise> getExercises() {
+    public List<Exercise> getExercises() {
         return exercises;
     }
 
-    public void setExercises(ArrayList<Exercise> exercises) {
+    public void setExercises(List<Exercise> exercises) {
         this.exercises = exercises;
     }
 

@@ -3,6 +3,7 @@ package com.gymtrackr.Persistence;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -14,9 +15,9 @@ import java.util.List;
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     private static String DATABASE_NAME = "gymtrackr.db";
-    private static int DATABASE_VERSION = 5;
+    private static int DATABASE_VERSION = 6;
 
-    private static String ROUTINE_TABLE_NAME = "Routines";
+    public static String ROUTINE_TABLE_NAME = "Routines";
     private static String ROUTINE_COLUMN_NAME = "name";
     //Muscle Group
     private static String ROUTINE_COLUMN_DAY_OF_THE_WEEK = "dayOfTheWeek";
@@ -25,15 +26,15 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
             ROUTINE_COLUMN_DAY_OF_THE_WEEK + " TEXT," +
             "PRIMARY KEY(" + ROUTINE_COLUMN_NAME + "))";
 
-    private static String EXERCISE_TABLE_NAME = "Exercises";
+    public static String EXERCISE_TABLE_NAME = "Exercises";
     private static String EXERCISE_COLUMN_NAME = "name";
     //Muscles Involved = muscle group ?
     private static String EXERCISE_COLUMN_REPETITIONS = "repetitions";
     private static String EXERCISE_COLUMN_SERIES = "series";
     private static String CREATE_EXERCISE_TABLE = "CREATE TABLE " + EXERCISE_TABLE_NAME + "(" +
             EXERCISE_COLUMN_NAME + " TEXT," +
-            EXERCISE_COLUMN_REPETITIONS + " INTEGER," +
-            EXERCISE_COLUMN_SERIES + " INTEGER," +
+            EXERCISE_COLUMN_REPETITIONS + " TEXT," +
+            EXERCISE_COLUMN_SERIES + " TEXT," +
             "PRIMARY KEY(" + EXERCISE_COLUMN_NAME + "))";
 
     //Join Routines Exercises
@@ -79,29 +80,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<List<String>> getRoutines() {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-
-        Cursor cursor = sqLiteDatabase.query(ROUTINE_TABLE_NAME,null,null,
-                null,null,null,null);
-
-        List<List<String>> routinesList = new ArrayList<>();
-
-        if (cursor != null) {
-            cursor.moveToFirst();
-            do {
-                List<String> routine = new ArrayList<>();
-                for(int i = 0; i < cursor.getColumnCount(); ++i) {
-                    routine.add(cursor.getString(i));
-                }
-                routinesList.add(routine);
-            } while (cursor.moveToNext());
-        }
-
-        return routinesList;
-    }
-
-    public void putExercise(String name, int repetitions, int series) throws InsertErrorThrowable {
+    public void putExercise(String name, String repetitions, String series) throws InsertErrorThrowable {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -126,5 +105,26 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         if(result == -1) throw new InsertErrorThrowable(JRE_TABLE_NAME);
 
         return;
+    }
+
+    public List<List<String>> getTable(String table) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.query(table,null,null,
+                null,null,null,null);
+
+        List<List<String>> tableList = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                List<String> item = new ArrayList<>();
+                for(int i = 0; i < cursor.getColumnCount(); ++i) {
+                    item.add(cursor.getString(i));
+                }
+                tableList.add(item);
+            } while (cursor.moveToNext());
+        }
+
+        return tableList;
     }
 }

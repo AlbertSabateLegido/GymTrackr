@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 
 import com.gymtrackr.Domain.DomainController;
 import com.gymtrackr.Domain.ExerciseList;
+import com.gymtrackr.Persistence.PersistenceManager;
 
 public class ExerciseRecyclerViewFragment extends Fragment {
+
     private ExerciseList exerciseList;
     private ExercisesAdapter exercisesAdapter;
 

@@ -1,12 +1,18 @@
 package com.gymtrackr.Domain;
 
+import com.gymtrackr.GymTrackr;
+import com.gymtrackr.Persistence.PersistenceManager;
+import com.gymtrackr.Persistence.PersistenceManagerImpl;
+import com.gymtrackr.Throwables.InsertErrorThrowable;
+
 public class DomainController {
     private static DomainController myDomainController = null;
     private ExerciseList exerciseList;
+    private PersistenceManager persistenceManager;
 
     private DomainController() {
-        exerciseList = new ExerciseList();
-        loadSampleExercises();
+        persistenceManager = new PersistenceManagerImpl(GymTrackr.getContext());
+        exerciseList = new ExerciseList(persistenceManager.getExercises());
     }
 
     public static synchronized DomainController getInstance(){
@@ -20,25 +26,17 @@ public class DomainController {
         Exercise exercise = new Exercise(name);
         exercise.setSeries(series);
         exercise.setReps(reps);
+        try {
+            persistenceManager.putExercise(exercise);
+        } catch (InsertErrorThrowable insertErrorThrowable) {
+            insertErrorThrowable.printStackTrace();
+        }
         exerciseList.addExercise(exercise);
+
     }
 
     public ExerciseList getExerciseList() {
         return exerciseList;
     }
 
-    private void loadSampleExercises() {
-        Exercise exercise1 = new Exercise("Bench press");
-        exercise1.setSeries(4);
-        exercise1.setReps(10);
-        exerciseList.addExercise(exercise1);
-        Exercise exercise2 = new Exercise("Biceps curl");
-        exercise2.setSeries(4);
-        exercise2.setReps(10);
-        exerciseList.addExercise(exercise2);
-        Exercise exercise3 = new Exercise("Triceps extension");
-        exercise3.setSeries(4);
-        exercise3.setReps(15);
-        exerciseList.addExercise(exercise3);
-    }
 }

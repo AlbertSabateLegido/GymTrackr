@@ -11,6 +11,8 @@ public class Exercise {
     private int reps;
     private int series;
 
+    public Exercise() {}
+
     public Exercise (String name) {
         this.name = name;
         musclesInvolved = new ArrayList<>();
