@@ -6,11 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.gymtrackr.Domain.Exercise;
+import com.gymtrackr.Domain.ExerciseList;
+
 import java.util.List;
 
 public class ExercicesAdapter extends RecyclerView.Adapter<ExercicesAdapter.MyViewHolder>{
 
-    List<Exercise> exerciseList;
+    ExerciseList exerciseList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName,tvRepetitions,tvSeries;
@@ -23,7 +26,7 @@ public class ExercicesAdapter extends RecyclerView.Adapter<ExercicesAdapter.MyVi
         }
     }
 
-    public ExercicesAdapter(List<Exercise> exerciseList) {
+    public ExercicesAdapter(ExerciseList exerciseList) {
         super();
         this.exerciseList = exerciseList;
     }

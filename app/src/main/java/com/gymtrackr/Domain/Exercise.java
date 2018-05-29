@@ -1,6 +1,7 @@
-package com.gymtrackr;
+package com.gymtrackr.Domain;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Exercise {
@@ -47,5 +48,12 @@ public class Exercise {
 
     public void setSeries(int series) {
         this.series = series;
+    }
+
+
+    public static class ExerciseNameComparator implements Comparator<Exercise> {
+        public int compare(Exercise left, Exercise right) {
+            return left.getName().toLowerCase().compareTo(right.getName().toLowerCase());
+        }
     }
 }

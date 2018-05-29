@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout.addOnTabSelectedListener(this);
 
         final Intent intentAddRoutine = new Intent(this, AddRoutine.class);
+        final Intent intentAddExercise = new Intent(this, AddExercise.class);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                     startActivity(intentAddRoutine);
                 }
                 else if (tabSelected == TabSelected.EXERCISES){
-
+                    startActivity(intentAddExercise);
                 }
             }
         });

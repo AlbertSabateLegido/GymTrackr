@@ -3,8 +3,8 @@ package com.gymtrackr.Persistence;
 
 import android.content.Context;
 
-import com.gymtrackr.Exercise;
-import com.gymtrackr.Routine;
+import com.gymtrackr.Domain.Exercise;
+import com.gymtrackr.Domain.Routine;
 import com.gymtrackr.Throwables.InsertErrorThrowable;
 
 import java.util.List;

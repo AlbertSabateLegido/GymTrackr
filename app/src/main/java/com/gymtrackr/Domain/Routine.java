@@ -1,4 +1,4 @@
-package com.gymtrackr;
+package com.gymtrackr.Domain;
 
 import java.util.ArrayList;
 
