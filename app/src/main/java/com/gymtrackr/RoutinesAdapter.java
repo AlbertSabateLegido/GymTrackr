@@ -6,13 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.gymtrackr.Domain.DomainController;
 import com.gymtrackr.Domain.Routine;
 
 import java.util.List;
 
 public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyViewHolder> {
 
-    private List<Routine> routinesList;
+    private List<String> routinesList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName,tvDayOfTheWeek;
@@ -24,7 +25,7 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyView
         }
     }
 
-    public RoutinesAdapter(List<Routine> routinesList) {
+    public RoutinesAdapter(List<String> routinesList) {
         super();
         this.routinesList = routinesList;
     }
@@ -39,39 +40,11 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Routine routine = routinesList.get(position);
-        holder.tvName.setText(routine.getName());
-        holder.tvDayOfTheWeek.setText(routine.getDayOfTheWeek().toString());
-        /*
-        switch (routine.getDayOfTheWeek()){
-            case NONE:
-                holder.tvDayOfTheWeek.setText(R.string.days_none);
-                break;
-            case MONDAY:
-                holder.tvDayOfTheWeek.setText(R.string.days_monday);
-                break;
-            case TUESDAY:
-                holder.tvDayOfTheWeek.setText(R.string.days_tuesday);
-                break;
-            case WEDNESDAY:
-                holder.tvDayOfTheWeek.setText(R.string.days_wednesday);
-                break;
-            case THURSDAY:
-                holder.tvDayOfTheWeek.setText(R.string.days_thursday);
-                break;
-            case FRIDAY:
-                holder.tvDayOfTheWeek.setText(R.string.days_friday);
-                break;
-            case SATURDAY:
-                holder.tvDayOfTheWeek.setText(R.string.days_saturday);
-                break;
-            case SUNDAY:
-                holder.tvDayOfTheWeek.setText(R.string.days_sunday);
-                break;
-            default:
-                holder.tvDayOfTheWeek.setText(R.string.days_none);
-                break;
-        } */
+        String routineName = routinesList.get(position);
+        holder.tvName.setText(routineName);
+
+        List<String> rawRoutine = DomainController.getInstance().getRoutineInformation(routineName);
+        holder.tvDayOfTheWeek.setText(rawRoutine.get(0));
     }
 
     @Override

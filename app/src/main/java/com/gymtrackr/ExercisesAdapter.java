@@ -6,27 +6,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.gymtrackr.Domain.Exercise;
-import com.gymtrackr.Domain.ExerciseList;
+import java.util.List;
 
 public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyViewHolder>{
 
-    ExerciseList exerciseList;
+    public static String SHOW = "show";
+    public static String ASSIGN = "assign";
+
+    private List<String> exerciseList;
+    private String type;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvName,tvRepetitions,tvSeries;
+        public TextView tvName, cbAssign;
 
         public MyViewHolder(View view) {
             super(view);
             tvName = view.findViewById(R.id.name);
-            tvRepetitions = view.findViewById(R.id.repetitions);
-            tvSeries = view.findViewById(R.id.series);
+            cbAssign = view.findViewById(R.id.cbAssign);
         }
     }
 
-    public ExercisesAdapter(ExerciseList exerciseList) {
+    public ExercisesAdapter(List<String> exerciseList,String type) {
         super();
         this.exerciseList = exerciseList;
+        this.type = type;
     }
 
     @Override
@@ -39,11 +42,17 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Exercise exercise = exerciseList.get(position);
+        String exerciseName = exerciseList.get(position);
 
-        holder.tvName.setText(exercise.getName());
-        holder.tvRepetitions.setText(String.valueOf(exercise.getReps()));
-        holder.tvSeries.setText(String.valueOf(exercise.getSeries()));
+        holder.tvName.setText(exerciseName);
+
+        if(type.equals(SHOW)) {
+            holder.cbAssign.setVisibility(View.GONE);
+        }
+
+        if(type.equals(ASSIGN)) {
+            //Do something
+        }
     }
 
     @Override
@@ -51,5 +60,13 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
         return exerciseList.size();
     }
 
+    public String getItem(int position) {
+        return exerciseList.get(position);
+    }
+
+    public void addExercise(String name) {
+        exerciseList.add(name);
+        notifyDataSetChanged();
+    }
 
 }

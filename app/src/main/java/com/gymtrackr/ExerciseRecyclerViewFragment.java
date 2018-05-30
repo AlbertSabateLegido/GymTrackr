@@ -11,19 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gymtrackr.Domain.DomainController;
-import com.gymtrackr.Domain.ExerciseList;
-import com.gymtrackr.Persistence.PersistenceManager;
 
 public class ExerciseRecyclerViewFragment extends Fragment {
 
-    private ExerciseList exerciseList;
     private ExercisesAdapter exercisesAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DomainController domainController = DomainController.getInstance();
-        exerciseList = domainController.getExerciseList();
+        exercisesAdapter = new ExercisesAdapter(DomainController.getInstance().getExerciseNames(),
+                ExercisesAdapter.SHOW);
     }
 
     @Override
@@ -31,7 +28,6 @@ public class ExerciseRecyclerViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
 
-        exercisesAdapter = new ExercisesAdapter(exerciseList);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(exercisesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity().getApplicationContext()));
@@ -41,9 +37,11 @@ public class ExerciseRecyclerViewFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        exercisesAdapter.notifyDataSetChanged();
+    public void addExercise(String name) {
+        exercisesAdapter.addExercise(name);
+    }
+
+    public int getExerciseListSize() {
+        return exercisesAdapter.getItemCount();
     }
 }

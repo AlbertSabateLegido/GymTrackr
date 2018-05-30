@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gymtrackr.Domain.DomainController;
 import com.gymtrackr.Domain.Routine;
 import com.gymtrackr.Persistence.PersistenceManager;
 import com.gymtrackr.Persistence.PersistenceManagerImpl;
@@ -17,14 +18,12 @@ import java.util.List;
 
 public class RoutineRecyclerViewFragment extends Fragment {
 
-    private PersistenceManager persistenceManager;
-    private List<Routine> routinesList;
+    private List<String> routinesList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        persistenceManager = new PersistenceManagerImpl(GymTrackr.getContext());
-        routinesList = persistenceManager.getRoutines();
+        routinesList = DomainController.getInstance().getRoutinesNames();
     }
 
     @Override

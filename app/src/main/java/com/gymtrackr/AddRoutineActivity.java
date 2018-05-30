@@ -1,31 +1,33 @@
 package com.gymtrackr;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddRoutineActivity extends AppCompatActivity {
 
+    public static String ASSIGNED_EXERCISES = "assigned_exercises";
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
         setContentView(R.layout.activity_add_routine);
-        getSupportActionBar().setTitle(R.string.title_add_routine);
-        Spinner spinnerDay = findViewById(R.id.spinnerDay);
-        ArrayList<String> dayList = new ArrayList<>();
-        dayList.add(getString(R.string.days_none));
-        dayList.add(getString(R.string.days_monday));
-        dayList.add(getString(R.string.days_tuesday));
-        dayList.add(getString(R.string.days_wednesday));
-        dayList.add(getString(R.string.days_thursday));
-        dayList.add(getString(R.string.days_friday));
-        dayList.add(getString(R.string.days_saturday));
-        dayList.add(getString(R.string.days_sunday));
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, dayList);
-        spinnerDay.setAdapter(myAdapter);
+
+        List<String> assignedExerciseNamesList = new ArrayList<>();
+
+        if(bundle != null) assignedExerciseNamesList = bundle.getStringArrayList(ASSIGNED_EXERCISES);
+
+        ExercisesAdapter exercisesAdapter = new ExercisesAdapter(assignedExerciseNamesList,ExercisesAdapter.SHOW);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setAdapter(exercisesAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
     }
+
 }

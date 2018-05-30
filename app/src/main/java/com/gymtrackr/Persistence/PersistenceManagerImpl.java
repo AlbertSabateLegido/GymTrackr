@@ -50,8 +50,6 @@ public class PersistenceManagerImpl implements PersistenceManager {
         List<List<String>> rawExercisesList = mySQLiteOpenHelper.getTable(MySQLiteOpenHelper.EXERCISE_TABLE_NAME);
         List<Exercise> exercisesList = new ArrayList<>();
 
-        System.out.println(rawExercisesList.get(0).size());
-
         for(List<String> rawExercise:rawExercisesList) {
             Exercise exercise = new Exercise();
             exercise.setName(rawExercise.get(0));

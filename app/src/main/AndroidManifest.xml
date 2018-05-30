@@ -20,8 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AssignExercisesActivity" />
         <activity android:name=".AddRoutineActivity" />
-        <activity android:name=".AddExerciseActivity"></activity>
+        <activity android:name=".AddExerciseActivity" />
     </application>
 
 </manifest>
