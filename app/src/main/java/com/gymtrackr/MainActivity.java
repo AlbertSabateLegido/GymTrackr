@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             @Override
             public void onClick(View view) {
                 if (tabSelected == TabSelected.ROUTINES){
-                    startActivity(new Intent(GymTrackr.getContext(), AssignExercisesActivity.class));
+                    Intent intent = new Intent(GymTrackr.getContext(), AssignExercisesActivity.class);
+                    startActivity(intent);
                 }
                 else if (tabSelected == TabSelected.EXERCISES) {
                     startActivity(new Intent(GymTrackr.getContext(), AddExerciseActivity.class));

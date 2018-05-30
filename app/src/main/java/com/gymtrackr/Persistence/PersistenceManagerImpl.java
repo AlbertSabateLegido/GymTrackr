@@ -21,7 +21,7 @@ public class PersistenceManagerImpl implements PersistenceManager {
 
     @Override
     public void putRoutine(Routine routine) throws InsertErrorThrowable {
-        mySQLiteOpenHelper.putRoutine(routine.getName(),DayOfTheWeek.toString(routine.getDayOfTheWeek()));
+        mySQLiteOpenHelper.putRoutine(routine.getName(),Integer.toString(routine.getDayOfTheWeek()));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class PersistenceManagerImpl implements PersistenceManager {
         for(List<String> rawRoutine:rawRoutinesList) {
             Routine routine = new Routine();
             routine.setName(rawRoutine.get(0));
-            routine.setDayOfTheWeek(DayOfTheWeek.toDayOfTheWeek(rawRoutine.get(1)));
+            routine.setDayOfTheWeek(Integer.valueOf(rawRoutine.get(1)));
             routinesList.add(routine);
         }
 

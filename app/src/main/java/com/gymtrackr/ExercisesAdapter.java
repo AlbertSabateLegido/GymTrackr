@@ -30,6 +30,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
         super();
         this.exerciseList = exerciseList;
         this.type = type;
+        System.out.println("HOLA!");
     }
 
     @Override

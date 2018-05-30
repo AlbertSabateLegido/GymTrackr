@@ -1,5 +1,6 @@
 package com.gymtrackr;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,9 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gymtrackr.Domain.DomainController;
-import com.gymtrackr.Domain.Routine;
-import com.gymtrackr.Persistence.PersistenceManager;
-import com.gymtrackr.Persistence.PersistenceManagerImpl;
 
 import java.util.List;
 

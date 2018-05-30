@@ -45,8 +45,9 @@ public class AssignExercisesActivity extends AppCompatActivity {
                 }
 
                 Intent intent = new Intent(GymTrackr.getContext(), AddRoutineActivity.class);
-                intent.putExtra(AddRoutineActivity.ASSIGNED_EXERCISES,assignedExercisesList);
+                intent.putStringArrayListExtra(AddRoutineActivity.ASSIGNED_EXERCISES,assignedExercisesList);
                 startActivity(intent);
+                finish();
             }
         });
     }

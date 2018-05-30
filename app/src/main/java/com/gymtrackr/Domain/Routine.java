@@ -7,17 +7,18 @@ public class Routine {
     private String name;
     private ArrayList<Exercise> exercises;
     private ArrayList<String> muscleGroup;
-    private DayOfTheWeek dayOfTheWeek;
+    //0 = Not Set; 1 = Monday; ... ; 7 = Sunday;
+    private int dayOfTheWeek;
 
 
     public Routine() {}
 
-    public Routine(String name) {
+    public Routine(String name,int dayOfTheWeek) {
         // Creating a new routine without any exercise
         this.name = name;
         this.exercises = new ArrayList<>();
         this.muscleGroup = new ArrayList<>();
-        this.dayOfTheWeek = DayOfTheWeek.NONE;
+        this.dayOfTheWeek = dayOfTheWeek;
     }
 
     public String getName() {
@@ -44,9 +45,9 @@ public class Routine {
         this.muscleGroup = muscleGroup;
     }
 
-    public DayOfTheWeek getDayOfTheWeek() { return dayOfTheWeek; }
+    public int getDayOfTheWeek() { return dayOfTheWeek; }
 
-    public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
+    public void setDayOfTheWeek(int dayOfTheWeek) {
         this.dayOfTheWeek = dayOfTheWeek;
     }
 

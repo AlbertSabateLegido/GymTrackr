@@ -1,55 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AssignExercisesActivity">
 
     <LinearLayout
+        android:id="@+id/newRoutineLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewRoutineName"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/etRoutineName"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:gravity="top|start"
-            android:text="@string/label_name" />
-
-        <EditText
-            android:id="@+id/editTextRoutineName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:ems="10"
             android:inputType="textCapSentences"
-            android:hint="Optional" />
+            android:hint="Routine name" />
 
-        <TextView
-            android:id="@+id/textViewDay"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_height="match_parent"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:gravity="top|start"
-            android:text="@string/label_day"/>
+            android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/spinnerDay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
+            <TextView
+                android:id="@+id/textViewDay"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/label_day"/>
 
-        <include layout="@layout/fragment_recycler_view"/>
+            <Spinner
+                android:id="@+id/spinnerDay"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/assignedExercisesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/newRoutineLayout"
+        android:background="@color/light_grey">
+
+        <include layout="@layout/fragment_recycler_view" />
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:src="@drawable/ic_action_add"/>
 
 </RelativeLayout>

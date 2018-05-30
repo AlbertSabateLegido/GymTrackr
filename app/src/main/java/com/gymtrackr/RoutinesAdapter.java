@@ -43,8 +43,11 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyView
         String routineName = routinesList.get(position);
         holder.tvName.setText(routineName);
 
+        System.out.println("ROUTINE: " + routineName);
+
         List<String> rawRoutine = DomainController.getInstance().getRoutineInformation(routineName);
-        holder.tvDayOfTheWeek.setText(rawRoutine.get(0));
+        String[] daysOfTheWeek = GymTrackr.getContext().getResources().getStringArray(R.array.days_of_the_week_array);
+        holder.tvDayOfTheWeek.setText(daysOfTheWeek[Integer.valueOf(rawRoutine.get(0))]);
     }
 
     @Override

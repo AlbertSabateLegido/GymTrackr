@@ -76,18 +76,38 @@ public class DomainController {
     }
 
     public List<String> getRoutineInformation(String name) {
-        int i = 0;
+        int i = -1;
         String auxName;
         do {
-             auxName = routinesList.get(i).getName();
              ++i;
+             auxName = routinesList.get(i).getName();
         } while(i < routinesList.size() && (name != auxName));
 
         List<String> rawRoutine = new ArrayList<>();
         if(i < routinesList.size()) {
             Routine routine = routinesList.get(i);
-            rawRoutine.add(DayOfTheWeek.toString(routine.getDayOfTheWeek()));
+            rawRoutine.add(Integer.toString(routine.getDayOfTheWeek()));
         }
         return rawRoutine;
+    }
+
+    public void addRoutine(String routineName, int dayOfTheWeek) {
+        Routine routine = new Routine(routineName,dayOfTheWeek);
+        routinesList.add(routine);
+        try {
+            persistenceManager.putRoutine(routine);
+        } catch (InsertErrorThrowable insertErrorThrowable) {
+            insertErrorThrowable.printStackTrace();
+        }
+    }
+
+    public void assignExercises(String routineName, List<String> assignedExerciseNamesList) {
+        for(String exerciseName:assignedExerciseNamesList) {
+            try {
+                persistenceManager.putJRE(routineName,exerciseName);
+            } catch (InsertErrorThrowable insertErrorThrowable) {
+                insertErrorThrowable.printStackTrace();
+            }
+        }
     }
 }
