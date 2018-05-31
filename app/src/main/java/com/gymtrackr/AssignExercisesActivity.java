@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.gymtrackr.Domain.DomainController;
 import com.gymtrackr.Domain.Exercise;
@@ -44,10 +45,15 @@ public class AssignExercisesActivity extends AppCompatActivity {
                         assignedExercisesList.add(exercisesAdapter.getItem(i));
                 }
 
+                if(assignedExercisesList.isEmpty()) {
+                    Toast.makeText(GymTrackr.getContext(), GymTrackr.getContext().getResources().
+                                    getString(R.string.assigned_list_empty), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent intent = new Intent(GymTrackr.getContext(), AddRoutineActivity.class);
                 intent.putStringArrayListExtra(AddRoutineActivity.ASSIGNED_EXERCISES,assignedExercisesList);
                 startActivity(intent);
-                finish();
             }
         });
     }

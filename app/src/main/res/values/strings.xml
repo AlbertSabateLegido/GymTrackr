@@ -17,5 +17,8 @@
 
     <string name="label_name">Name</string>
     <string name="label_day">Day</string>
+    <string name="hint_text_routine_name">Routine name</string>
+    <string name="assigned_list_empty">At least one exercise be must selected</string>
+    <string name="empty_name">Name cannot be empty</string>
 
 </resources>

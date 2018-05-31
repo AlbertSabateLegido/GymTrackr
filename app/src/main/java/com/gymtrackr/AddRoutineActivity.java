@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gymtrackr.Domain.DomainController;
 
@@ -55,7 +56,11 @@ public class AddRoutineActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String routineName = etName.getText().toString();
-                if(routineName.isEmpty()) return;
+                if(routineName.isEmpty()) {
+                    Toast.makeText(GymTrackr.getContext(),GymTrackr.getContext().getResources().
+                                    getString(R.string.empty_name), Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 int dayOfTheWeek = spinner.getSelectedItemPosition();
                 DomainController.getInstance().addRoutine(routineName,dayOfTheWeek);

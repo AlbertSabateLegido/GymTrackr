@@ -3,7 +3,6 @@ package com.gymtrackr.Persistence;
 
 import android.content.Context;
 
-import com.gymtrackr.Domain.DayOfTheWeek;
 import com.gymtrackr.Domain.Exercise;
 import com.gymtrackr.Domain.Routine;
 import com.gymtrackr.Throwables.InsertErrorThrowable;
