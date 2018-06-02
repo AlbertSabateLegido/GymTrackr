@@ -71,7 +71,12 @@ public class PersistenceManagerImpl implements PersistenceManager {
     }
 
     @Override
-    public void putJRE(String routineName, String exerciceName) throws InsertErrorThrowable {
-        mySQLiteOpenHelper.putJRE(routineName,exerciceName);
+    public void putJRE(String routineName, String exerciseName) throws InsertErrorThrowable {
+        mySQLiteOpenHelper.putJRE(routineName, exerciseName);
+    }
+
+    @Override
+    public List<String> getJRE(String routineName) {
+        return mySQLiteOpenHelper.getJRE(routineName);
     }
 }

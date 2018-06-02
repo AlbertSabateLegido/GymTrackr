@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,11 +19,13 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName, cbAssign;
+        public ImageView ivAction;
 
         public MyViewHolder(View view) {
             super(view);
             tvName = view.findViewById(R.id.name);
             cbAssign = view.findViewById(R.id.cbAssign);
+            ivAction = view.findViewById(R.id.actionImage);
         }
     }
 
@@ -30,7 +33,6 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
         super();
         this.exerciseList = exerciseList;
         this.type = type;
-        System.out.println("HOLA!");
     }
 
     @Override
@@ -47,12 +49,8 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
 
         holder.tvName.setText(exerciseName);
 
-        if(type.equals(SHOW)) {
-            holder.cbAssign.setVisibility(View.GONE);
-        }
-
         if(type.equals(ASSIGN)) {
-            //Do something
+            holder.cbAssign.setVisibility(View.VISIBLE);
         }
     }
 

@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".AssignExercisesActivity" />
         <activity android:name=".AddRoutineActivity" />
+        <activity android:name=".ShowRoutineActivity" />
         <activity android:name=".AddExerciseActivity" />
     </application>
 

@@ -107,6 +107,26 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         return;
     }
 
+    public List<String> getJRE(String routineName) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        String[] columns = {JRE_COLUMN_EXERCISE_NAME};
+        String[] arguments = {routineName};
+
+        Cursor cursor = sqLiteDatabase.query(JRE_TABLE_NAME,columns,"? =" + JRE_COLUMN_ROUTINE_NAME,
+                arguments,null,null,null);
+
+        List<String> assignedExercises = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                assignedExercises.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+        return assignedExercises;
+    }
+
     public List<List<String>> getTable(String table) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 

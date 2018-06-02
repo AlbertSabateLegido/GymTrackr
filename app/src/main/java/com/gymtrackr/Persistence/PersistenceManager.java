@@ -18,5 +18,7 @@ public interface PersistenceManager {
 
     void putJRE(Routine routine) throws InsertErrorThrowable;
 
-    void putJRE(String routineName,String exerciceName) throws InsertErrorThrowable;
+    void putJRE(String routineName,String exerciseName) throws InsertErrorThrowable;
+
+    List<String> getJRE(String routineName);
 }

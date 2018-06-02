@@ -81,7 +81,7 @@ public class DomainController {
         do {
              ++i;
              auxName = routinesList.get(i).getName();
-        } while(i < routinesList.size() && (name != auxName));
+        } while(i+1 < routinesList.size() && (!name.equals(auxName)));
 
         List<String> rawRoutine = new ArrayList<>();
         if(i < routinesList.size()) {
@@ -109,5 +109,9 @@ public class DomainController {
                 insertErrorThrowable.printStackTrace();
             }
         }
+    }
+
+    public List<String> getAssignedExercises(String routineName) {
+        return persistenceManager.getJRE(routineName);
     }
 }

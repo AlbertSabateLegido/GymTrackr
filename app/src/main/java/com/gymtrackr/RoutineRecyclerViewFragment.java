@@ -1,6 +1,5 @@
 package com.gymtrackr;
 
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -16,12 +15,9 @@ import java.util.List;
 
 public class RoutineRecyclerViewFragment extends Fragment {
 
-    private List<String> routinesList;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        routinesList = DomainController.getInstance().getRoutinesNames();
     }
 
     @Override
@@ -29,6 +25,7 @@ public class RoutineRecyclerViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
 
+        List<String> routinesList = DomainController.getInstance().getRoutinesNames();
         RoutinesAdapter routinesAdapter = new RoutinesAdapter(routinesList);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(routinesAdapter);

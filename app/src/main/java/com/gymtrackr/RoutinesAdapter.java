@@ -1,5 +1,6 @@
 package com.gymtrackr;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gymtrackr.Domain.DomainController;
-import com.gymtrackr.Domain.Routine;
 
 import java.util.List;
 
@@ -15,13 +15,21 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyView
 
     private List<String> routinesList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView tvName,tvDayOfTheWeek;
 
         public MyViewHolder(View view) {
             super(view);
             tvName = view.findViewById(R.id.name);
             tvDayOfTheWeek = view.findViewById(R.id.dayOfTheWeek);
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(GymTrackr.getContext(),ShowRoutineActivity.class);
+            intent.putExtra(ShowRoutineActivity.EXTRA_ROUTINE_NAME,routinesList.get(getAdapterPosition()));
+            GymTrackr.getContext().startActivity(intent);
         }
     }
 
@@ -42,8 +50,6 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         String routineName = routinesList.get(position);
         holder.tvName.setText(routineName);
-
-        System.out.println("ROUTINE: " + routineName);
 
         List<String> rawRoutine = DomainController.getInstance().getRoutineInformation(routineName);
         String[] daysOfTheWeek = GymTrackr.getContext().getResources().getStringArray(R.array.days_of_the_week_array);
