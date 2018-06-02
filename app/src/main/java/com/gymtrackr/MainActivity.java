@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     TabSelected tabSelected;
 
     ExerciseRecyclerViewFragment exerciseRecyclerViewFragment;
+    RoutineRecyclerViewFragment routineRecyclerViewFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setSupportActionBar(toolbar);
 
         exerciseRecyclerViewFragment = new ExerciseRecyclerViewFragment();
+        routineRecyclerViewFragment = new RoutineRecyclerViewFragment();
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.container,new RoutineRecyclerViewFragment());
@@ -97,6 +99,11 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             int i = DomainController.getInstance().getExerciseListSize();
             int j = exerciseRecyclerViewFragment.getExerciseListSize();
             if(i > j) exerciseRecyclerViewFragment.addExercise(DomainController.getInstance().getLastExerciseName());
+        }
+        else {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.container,new RoutineRecyclerViewFragment());
+            ft.commit();
         }
     }
 }

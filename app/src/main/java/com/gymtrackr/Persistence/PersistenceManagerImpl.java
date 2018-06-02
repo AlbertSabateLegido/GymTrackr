@@ -39,6 +39,16 @@ public class PersistenceManagerImpl implements PersistenceManager {
     }
 
     @Override
+    public void updateRoutineName(String oldName, String newName) {
+        mySQLiteOpenHelper.updateRoutineName(oldName,newName);
+    }
+
+    @Override
+    public void updateRoutineDayOfTheWeek(String routineName, int newDay) {
+        mySQLiteOpenHelper.updateRoutineDayOfTheWeek(routineName,String.valueOf(newDay));
+    }
+
+    @Override
     public void putExercise(Exercise exercise) throws InsertErrorThrowable {
         mySQLiteOpenHelper.putExercise(exercise.getName(),String.valueOf(exercise.getReps()),
                 String.valueOf(exercise.getSeries()));

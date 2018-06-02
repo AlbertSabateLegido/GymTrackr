@@ -114,4 +114,26 @@ public class DomainController {
     public List<String> getAssignedExercises(String routineName) {
         return persistenceManager.getJRE(routineName);
     }
+
+    public void setRoutineDayOfTheWeek(String routineName, int newDay) {
+        int i = -1;
+        String auxName;
+        do {
+            ++i;
+            auxName = routinesList.get(i).getName();
+        } while(i+1 < routinesList.size() && (!routineName.equals(auxName)));
+        routinesList.get(i).setDayOfTheWeek(newDay);
+        persistenceManager.updateRoutineDayOfTheWeek(routineName,newDay);
+    }
+
+    public void setRoutineName(String oldName, String newName) {
+        int i = -1;
+        String auxName;
+        do {
+            ++i;
+            auxName = routinesList.get(i).getName();
+        } while(i+1 < routinesList.size() && (!oldName.equals(auxName)));
+        routinesList.get(i).setName(newName);
+        persistenceManager.updateRoutineName(oldName,newName);
+    }
 }

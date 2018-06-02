@@ -24,6 +24,7 @@
         <activity android:name=".AddRoutineActivity" />
         <activity android:name=".ShowRoutineActivity" />
         <activity android:name=".AddExerciseActivity" />
+        <activity android:name=".EditNameActivity" />
     </application>
 
 </manifest>

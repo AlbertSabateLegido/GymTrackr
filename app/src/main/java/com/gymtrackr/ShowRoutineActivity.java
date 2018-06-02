@@ -1,11 +1,15 @@
 package com.gymtrackr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -41,6 +45,18 @@ public class ShowRoutineActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(Integer.valueOf(rawRoutine.get(0)));
+        final String finalRoutineName = routineName;
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                DomainController.getInstance().setRoutineDayOfTheWeek(finalRoutineName,i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         ExercisesAdapter exercisesAdapter = new ShowAssignedExercisesAdapter(exercises);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
@@ -48,5 +64,25 @@ public class ShowRoutineActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
+
+        ImageView ivEdit = findViewById(R.id.ivEdit);
+        ivEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GymTrackr.getContext(),EditNameActivity.class);
+                intent.putExtra(EditNameActivity.EXTRA_NAME, finalRoutineName);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+    }
+
+
 }

@@ -12,6 +12,10 @@ public interface PersistenceManager {
 
     List<Routine> getRoutines();
 
+    void updateRoutineName(String oldName, String newName);
+
+    void updateRoutineDayOfTheWeek(String finalRoutineName, int i);
+
     void putExercise(Exercise exercise) throws InsertErrorThrowable;
 
     List<Exercise> getExercises();

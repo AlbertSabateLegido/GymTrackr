@@ -80,6 +80,32 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     }
 
+    public void updateRoutineName(String oldName, String newName) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ROUTINE_COLUMN_NAME,newName);
+
+        sqLiteDatabase.update(ROUTINE_TABLE_NAME,contentValues,ROUTINE_COLUMN_NAME + "= ?",
+                new String[]{oldName});
+
+        contentValues = new ContentValues();
+        contentValues.put(JRE_COLUMN_ROUTINE_NAME,newName);
+
+        sqLiteDatabase.update(JRE_TABLE_NAME,contentValues,JRE_COLUMN_ROUTINE_NAME + "= ?",
+                new String[]{oldName});
+    }
+
+    public void updateRoutineDayOfTheWeek(String routineName, String dayOfTheWeek) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ROUTINE_COLUMN_DAY_OF_THE_WEEK,dayOfTheWeek);
+
+        int result = sqLiteDatabase.update(ROUTINE_TABLE_NAME,contentValues,ROUTINE_COLUMN_NAME + "= ?",
+                new String[]{routineName});
+    }
+
     public void putExercise(String name, String repetitions, String series) throws InsertErrorThrowable {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
