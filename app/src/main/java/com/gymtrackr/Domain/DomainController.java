@@ -140,4 +140,15 @@ public class DomainController {
     public void deleteAssignedExercises(String routineName) {
         persistenceManager.deleteJRE(routineName);
     }
+
+    public List<String> getExerciseInformation(String exerciseName) {
+        List<String> dummy = new ArrayList<>();
+        //repetitions
+        dummy.add("10");
+        //series
+        dummy.add("5");
+        //weight
+        dummy.add("30");
+        return dummy;
+    }
 }

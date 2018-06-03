@@ -29,7 +29,9 @@ public class ShowAssignedExercisesAdapter extends ExercisesAdapter {
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println("START ROUTINE");
+                    Intent intent = new Intent(GymTrackr.getContext(),StartRoutineActivity.class);
+                    intent.putExtra(StartRoutineActivity.EXTRA_ROUTINE_NAME,routineName);
+                    GymTrackr.getContext().startActivity(intent);
                 }
             });
         }

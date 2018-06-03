@@ -11,38 +11,50 @@ import com.gymtrackr.Throwables.InsertErrorThrowable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     private static String DATABASE_NAME = "gymtrackr.db";
-    private static int DATABASE_VERSION = 6;
+    private static int DATABASE_VERSION = 8;
 
     public static String ROUTINE_TABLE_NAME = "Routines";
     private static String ROUTINE_COLUMN_NAME = "name";
-    //Muscle Group
     private static String ROUTINE_COLUMN_DAY_OF_THE_WEEK = "dayOfTheWeek";
     private static String CREATE_ROUTINE_TABLE = "CREATE TABLE " + ROUTINE_TABLE_NAME + "(" +
             ROUTINE_COLUMN_NAME            + " TEXT," +
             ROUTINE_COLUMN_DAY_OF_THE_WEEK + " TEXT," +
             "PRIMARY KEY(" + ROUTINE_COLUMN_NAME + "))";
 
-    public static String EXERCISE_TABLE_NAME = "Exercises";
+    public  static String EXERCISE_TABLE_NAME = "Exercises";
     private static String EXERCISE_COLUMN_NAME = "name";
-    //Muscles Involved = muscle group ?
-    private static String EXERCISE_COLUMN_REPETITIONS = "repetitions";
-    private static String EXERCISE_COLUMN_SERIES = "series";
     private static String CREATE_EXERCISE_TABLE = "CREATE TABLE " + EXERCISE_TABLE_NAME + "(" +
             EXERCISE_COLUMN_NAME + " TEXT," +
-            EXERCISE_COLUMN_REPETITIONS + " TEXT," +
-            EXERCISE_COLUMN_SERIES + " TEXT," +
             "PRIMARY KEY(" + EXERCISE_COLUMN_NAME + "))";
+
+    private static String EXERCISE_DONE_TABLE_NAME = "ExercisesDone";
+    private static String EXERCISE_DONE_COLUMN_ID = "_id";
+    private static String EXERCISE_DONE_COLUMN_NAME = "name";
+    private static String EXERCISE_DONE_COLUMN_DATE = "date";
+    private static String EXERCISE_DONE_COLUMN_REPETITIONS = "repetitions";
+    private static String EXERCISE_DONE_COLUMN_SERIES = "series";
+    private static String EXERCISE_DONE_COLUMN_WEIGHT = "weight";
+    private static String CREATE_EXERCISE_DONE_TABLE = "CREATE TABLE " + EXERCISE_DONE_TABLE_NAME + "(" +
+            EXERCISE_DONE_COLUMN_ID          + " TEXT," +
+            EXERCISE_DONE_COLUMN_DATE        + " TEXT," +
+            EXERCISE_DONE_COLUMN_NAME        + " TEXT," +
+            EXERCISE_DONE_COLUMN_REPETITIONS + " TEXT," +
+            EXERCISE_DONE_COLUMN_SERIES      + " TEXT," +
+            EXERCISE_DONE_COLUMN_WEIGHT      + " TEXT," +
+            "PRIMARY KEY(" + EXERCISE_DONE_COLUMN_ID + "," + EXERCISE_DONE_COLUMN_NAME + ")," +
+            "FOREIGN KEY(" + EXERCISE_DONE_COLUMN_NAME + ") REFERENCES " + EXERCISE_TABLE_NAME + "(" + EXERCISE_COLUMN_NAME + "))";;
 
     //Join Routines Exercises
     private static String JRE_TABLE_NAME = "JoinRoutinesExercises";
     private static String JRE_COLUMN_ROUTINE_NAME = "routineName";
     private static String JRE_COLUMN_EXERCISE_NAME = "exerciseName";
     private static String CREATE_JRE_TABLE = "CREATE TABLE " + JRE_TABLE_NAME + "(" +
-            JRE_COLUMN_ROUTINE_NAME + " TEXT," +
+            JRE_COLUMN_ROUTINE_NAME  + " TEXT," +
             JRE_COLUMN_EXERCISE_NAME + " TEXT," +
             "PRIMARY KEY(" + JRE_COLUMN_ROUTINE_NAME + "," + JRE_COLUMN_EXERCISE_NAME + ")," +
             "FOREIGN KEY(" + JRE_COLUMN_ROUTINE_NAME + ") REFERENCES " + ROUTINE_TABLE_NAME + "(" + ROUTINE_COLUMN_NAME + ")," +
@@ -56,6 +68,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_ROUTINE_TABLE);
         sqLiteDatabase.execSQL(CREATE_EXERCISE_TABLE);
+        sqLiteDatabase.execSQL(CREATE_EXERCISE_DONE_TABLE);
         sqLiteDatabase.execSQL(CREATE_JRE_TABLE);
     }
 
@@ -102,22 +115,36 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ROUTINE_COLUMN_DAY_OF_THE_WEEK,dayOfTheWeek);
 
-        int result = sqLiteDatabase.update(ROUTINE_TABLE_NAME,contentValues,ROUTINE_COLUMN_NAME + "= ?",
+        sqLiteDatabase.update(ROUTINE_TABLE_NAME,contentValues,ROUTINE_COLUMN_NAME + "= ?",
                 new String[]{routineName});
     }
 
-    public void putExercise(String name, String repetitions, String series) throws InsertErrorThrowable {
+    public void putExercise(String name) throws InsertErrorThrowable {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(EXERCISE_COLUMN_NAME,name);
-        contentValues.put(EXERCISE_COLUMN_REPETITIONS,repetitions);
-        contentValues.put(EXERCISE_COLUMN_SERIES,series);
+
         long result = sqLiteDatabase.insert(EXERCISE_TABLE_NAME,null,contentValues);
 
         if(result == -1) throw new InsertErrorThrowable(EXERCISE_TABLE_NAME);
 
         return;
+    }
+
+    public void putDoneExercise(String name,String date,String repetitions,String series,String weight) throws InsertErrorThrowable {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(EXERCISE_DONE_COLUMN_ID, UUID.randomUUID().toString());
+        contentValues.put(EXERCISE_DONE_COLUMN_NAME,name);
+        contentValues.put(EXERCISE_DONE_COLUMN_DATE,date);
+        contentValues.put(EXERCISE_DONE_COLUMN_REPETITIONS,repetitions);
+        contentValues.put(EXERCISE_DONE_COLUMN_SERIES,series);
+        contentValues.put(EXERCISE_DONE_COLUMN_WEIGHT,weight);
+        long result = sqLiteDatabase.insert(EXERCISE_DONE_TABLE_NAME,null,contentValues);
+
+        if(result == -1) throw new InsertErrorThrowable(EXERCISE_DONE_TABLE_NAME);
     }
 
     public void putJRE(String routineName,String exerciceName) throws InsertErrorThrowable {

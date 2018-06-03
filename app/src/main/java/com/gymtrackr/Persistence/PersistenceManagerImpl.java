@@ -7,7 +7,9 @@ import com.gymtrackr.Domain.Exercise;
 import com.gymtrackr.Domain.Routine;
 import com.gymtrackr.Throwables.InsertErrorThrowable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PersistenceManagerImpl implements PersistenceManager {
@@ -50,8 +52,7 @@ public class PersistenceManagerImpl implements PersistenceManager {
 
     @Override
     public void putExercise(Exercise exercise) throws InsertErrorThrowable {
-        mySQLiteOpenHelper.putExercise(exercise.getName(),String.valueOf(exercise.getReps()),
-                String.valueOf(exercise.getSeries()));
+        mySQLiteOpenHelper.putExercise(exercise.getName());
     }
 
     @Override
@@ -62,13 +63,19 @@ public class PersistenceManagerImpl implements PersistenceManager {
         for(List<String> rawExercise:rawExercisesList) {
             Exercise exercise = new Exercise();
             exercise.setName(rawExercise.get(0));
-            System.out.println(rawExercise.get(1));
-            exercise.setReps(Integer.parseInt(rawExercise.get(1)));
-            exercise.setSeries(Integer.parseInt(rawExercise.get(2)));
             exercisesList.add(exercise);
         }
 
         return exercisesList;
+    }
+
+    @Override
+    public void putExerciseDone(String name,String repetitions, String series, String weight)
+            throws InsertErrorThrowable {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmm");
+        Date date = new Date();
+        System.out.println("DATE: " + sdf.format(date));
+        mySQLiteOpenHelper.putDoneExercise(name,sdf.format(date),repetitions,series,weight);
     }
 
     @Override
