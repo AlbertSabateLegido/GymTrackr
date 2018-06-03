@@ -136,4 +136,8 @@ public class DomainController {
         routinesList.get(i).setName(newName);
         persistenceManager.updateRoutineName(oldName,newName);
     }
+
+    public void deleteAssignedExercises(String routineName) {
+        persistenceManager.deleteJRE(routineName);
+    }
 }

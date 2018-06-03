@@ -26,22 +26,25 @@ public class EditNameActivity extends AppCompatActivity {
         final EditText etName = findViewById(R.id.etName);
         etName.setText(name);
 
+        final String finalName = name;
+
         Button bCancel = findViewById(R.id.bCancel);
         bCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent = new Intent(GymTrackr.getContext(),ShowRoutineActivity.class);
+                intent.putExtra(ShowRoutineActivity.EXTRA_ROUTINE_NAME,finalName);
+                startActivity(intent);
             }
         });
 
         Button bAccept = findViewById(R.id.bAccept);
-        final String finalName = name;
+
         bAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String newName = etName.getText().toString();
-                if(finalName.equals(newName)) finish();
-                DomainController.getInstance().setRoutineName(finalName,newName);
+                if(!finalName.equals(newName)) DomainController.getInstance().setRoutineName(finalName,newName);
                 Intent intent = new Intent(GymTrackr.getContext(),ShowRoutineActivity.class);
                 intent.putExtra(ShowRoutineActivity.EXTRA_ROUTINE_NAME,newName);
                 startActivity(intent);

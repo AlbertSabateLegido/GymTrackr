@@ -1,40 +1,55 @@
 package com.gymtrackr;
 
-import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.gymtrackr.Domain.DomainController;
-import com.gymtrackr.Domain.Exercise;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AssignExercisesActivity extends AppCompatActivity {
+public class EditAssignedExercisesActivity extends AppCompatActivity {
+
+    public static String EXTRA_ROUTINE_NAME = "routine_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assign_exercises);
+        setContentView(R.layout.activity_edit_assigned_exercises);
 
-        List<String> exerciseList = DomainController.getInstance().getExerciseNames();
+        String routineName = new String();
 
-        final ExercisesAdapter exercisesAdapter = new ExercisesAdapter(exerciseList,ExercisesAdapter.ASSIGN);
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) routineName = bundle.getString(EXTRA_ROUTINE_NAME);
+
+        List<String> exercises = DomainController.getInstance().getExerciseNames();
+        List<String> assignedExercises = DomainController.getInstance().getAssignedExercises(routineName);
+
+        final EditAssignedExercisesAdapter exercisesAdapter = new EditAssignedExercisesAdapter(exercises,assignedExercises);
         final RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setAdapter(exercisesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button bCancel = findViewById(R.id.bCancel);
+        bCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        Button bAccept = findViewById(R.id.bAccept);
+        final String finalRoutineName = routineName;
+        bAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ArrayList<String> assignedExercisesList = new ArrayList<>();
@@ -44,15 +59,14 @@ public class AssignExercisesActivity extends AppCompatActivity {
                     if(cbAssign.isChecked())
                         assignedExercisesList.add(exercisesAdapter.getItem(i));
                 }
-
                 if(assignedExercisesList.isEmpty()) {
                     Toast.makeText(GymTrackr.getContext(), GymTrackr.getContext().getResources().
-                                    getString(R.string.assigned_list_empty), Toast.LENGTH_SHORT).show();
+                            getString(R.string.assigned_list_empty), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(GymTrackr.getContext(), AddRoutineActivity.class);
-                intent.putStringArrayListExtra(AddRoutineActivity.ASSIGNED_EXERCISES,assignedExercisesList);
-                startActivity(intent);
+                DomainController.getInstance().deleteAssignedExercises(finalRoutineName);
+                DomainController.getInstance().assignExercises(finalRoutineName,assignedExercisesList);
+                finish();
             }
         });
     }

@@ -173,4 +173,10 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
         return tableList;
     }
+
+    public void deleteJRE(String routineName) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+        sqLiteDatabase.delete(JRE_TABLE_NAME,JRE_COLUMN_ROUTINE_NAME + "=?",new String[]{routineName});
+    }
 }

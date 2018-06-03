@@ -21,20 +21,21 @@ public class ShowRoutineActivity extends AppCompatActivity {
 
     public static String EXTRA_ROUTINE_NAME = "RoutineName";
 
+    private String routineName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_routine);
 
-        String routineName = new String();
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) routineName = bundle.getString(EXTRA_ROUTINE_NAME);
+        else routineName = new String();
 
         System.out.println(routineName);
 
         List<String> rawRoutine = DomainController.getInstance().getRoutineInformation(routineName);
-        List<String> exercises  = DomainController.getInstance().getAssignedExercises(routineName);
 
         TextView tvName = findViewById(R.id.etRoutineName);
         tvName.setText(routineName);
@@ -58,12 +59,7 @@ public class ShowRoutineActivity extends AppCompatActivity {
             }
         });
 
-        ExercisesAdapter exercisesAdapter = new ShowAssignedExercisesAdapter(exercises);
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setAdapter(exercisesAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
+        loadRecyclerView(routineName);
 
         ImageView ivEdit = findViewById(R.id.ivEdit);
         ivEdit.setOnClickListener(new View.OnClickListener() {
@@ -80,8 +76,19 @@ public class ShowRoutineActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-
         super.onResume();
+        loadRecyclerView(routineName);
+    }
+
+    private void loadRecyclerView(String routineName) {
+        List<String> exercises  = DomainController.getInstance().getAssignedExercises(routineName);
+
+        ExercisesAdapter exercisesAdapter = new ShowAssignedExercisesAdapter(exercises,routineName);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setAdapter(exercisesAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
     }
 
 

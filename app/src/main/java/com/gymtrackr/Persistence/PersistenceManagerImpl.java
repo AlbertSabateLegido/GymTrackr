@@ -89,4 +89,9 @@ public class PersistenceManagerImpl implements PersistenceManager {
     public List<String> getJRE(String routineName) {
         return mySQLiteOpenHelper.getJRE(routineName);
     }
+
+    @Override
+    public void deleteJRE(String routineName) {
+        mySQLiteOpenHelper.deleteJRE(routineName);
+    }
 }

@@ -25,4 +25,6 @@ public interface PersistenceManager {
     void putJRE(String routineName,String exerciseName) throws InsertErrorThrowable;
 
     List<String> getJRE(String routineName);
+
+    void deleteJRE(String routineName);
 }
