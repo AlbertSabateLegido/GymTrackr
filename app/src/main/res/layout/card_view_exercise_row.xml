@@ -23,8 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_size"
-                android:textColor="@color/black"
-                android:text="Exercise Name" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/repetitions_series"
@@ -32,8 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_below="@id/name"
-                android:textSize="@dimen/font_size"
-                android:text="3x2"/>
+                android:textSize="@dimen/font_size"/>
 
             <TextView
                 android:id="@+id/weight"
@@ -42,8 +40,7 @@
                 android:layout_toEndOf="@id/repetitions_series"
                 android:layout_alignBottom="@id/repetitions_series"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:textSize="@dimen/font_size"
-                android:text="30kg"/>
+                android:textSize="@dimen/font_size"/>
 
             <Button
                 android:id="@+id/bDone"

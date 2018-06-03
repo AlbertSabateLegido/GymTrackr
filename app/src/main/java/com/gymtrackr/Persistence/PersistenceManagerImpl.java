@@ -79,6 +79,11 @@ public class PersistenceManagerImpl implements PersistenceManager {
     }
 
     @Override
+    public List<String> getLastExerciseDone(String exerciseName) {
+        return mySQLiteOpenHelper.getLastExerciseDone(exerciseName);
+    }
+
+    @Override
     public void putJRE(Routine routine) throws InsertErrorThrowable {
         List<Exercise> exerciseList = routine.getExercises();
 

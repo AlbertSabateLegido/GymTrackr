@@ -4,16 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/recycler_view"
-        layout="@layout/fragment_recycler_view"/>
+    <include layout="@layout/fragment_recycler_view"/>
 
     <Button
+        android:id="@+id/bFinish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_below="@id/recycler_view"
         android:text="Finish Routine"/>
 
 </RelativeLayout>

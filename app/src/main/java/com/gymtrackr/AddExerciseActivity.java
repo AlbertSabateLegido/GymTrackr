@@ -39,7 +39,7 @@ public class AddExerciseActivity extends AppCompatActivity {
                 if (!exerciseReps.getText().toString().matches(""))
                     reps = Integer.parseInt(exerciseReps.getText().toString());
                 else reps = 0;
-                domainController.addExercise(name, series, reps);
+                domainController.addExercise(name);
                 finish();
             }
         });

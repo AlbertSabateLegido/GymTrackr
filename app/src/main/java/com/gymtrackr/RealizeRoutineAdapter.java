@@ -1,5 +1,6 @@
 package com.gymtrackr;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,11 @@ import com.gymtrackr.Domain.DomainController;
 
 import java.util.List;
 
-public class StartRoutineAdapter extends RecyclerView.Adapter<StartRoutineAdapter.MyViewHolder> {
+public class RealizeRoutineAdapter extends RecyclerView.Adapter<RealizeRoutineAdapter.MyViewHolder> {
 
     List<String> assignedExercises;
 
-    public StartRoutineAdapter(List<String> assignedExercises) {
+    public RealizeRoutineAdapter(List<String> assignedExercises) {
         super();
         this.assignedExercises = assignedExercises;
         System.out.println("Size: " + assignedExercises.size());
@@ -45,13 +46,26 @@ public class StartRoutineAdapter extends RecyclerView.Adapter<StartRoutineAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        String exerciseName = assignedExercises.get(position);
-        List<String> rawExerciseInformation = DomainController.getInstance().getExerciseInformation(exerciseName);
+        final String exerciseName = assignedExercises.get(position);
         holder.tvName.setText(exerciseName);
-        String concatString = rawExerciseInformation.get(0) + "x" + rawExerciseInformation.get(1);
-        holder.tvRepetitionsXSeries.setText(concatString);
-        concatString = rawExerciseInformation.get(2) + "kg";
-        holder.tvWeight.setText(concatString);
+        List<String> rawExerciseInformation = DomainController.getInstance().getExerciseInformation(exerciseName);
+        if(rawExerciseInformation.isEmpty()) {
+            holder.tvRepetitionsXSeries.setText("No data stored");
+        }
+        else {
+            String concatString = rawExerciseInformation.get(0) + "x" + rawExerciseInformation.get(1);
+            holder.tvRepetitionsXSeries.setText(concatString);
+            concatString = rawExerciseInformation.get(2) + "kg";
+            holder.tvWeight.setText(concatString);
+        }
+        holder.bDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GymTrackr.getContext(),RealizeExercise.class);
+                intent.putExtra(RealizeExercise.EXTRA_EXERCISE_NAME,exerciseName);
+                GymTrackr.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

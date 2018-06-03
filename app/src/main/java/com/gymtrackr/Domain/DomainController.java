@@ -5,7 +5,6 @@ import com.gymtrackr.Persistence.PersistenceManager;
 import com.gymtrackr.Persistence.PersistenceManagerImpl;
 import com.gymtrackr.Throwables.InsertErrorThrowable;
 
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,11 +14,13 @@ public class DomainController {
     private List<Routine> routinesList;
     private List<Exercise> exerciseList;
     private PersistenceManager persistenceManager;
+    private Integer currentRoutine;
 
     private DomainController() {
         persistenceManager = new PersistenceManagerImpl(GymTrackr.getContext());
         routinesList = persistenceManager.getRoutines();
         exerciseList = persistenceManager.getExercises();
+        currentRoutine = null;
     }
 
     public static synchronized DomainController getInstance(){
@@ -29,10 +30,8 @@ public class DomainController {
         return myDomainController;
     }
 
-    public void addExercise(String name, int series, int reps) {
+    public void addExercise(String name) {
         Exercise exercise = new Exercise(name);
-        exercise.setSeries(series);
-        exercise.setReps(reps);
         try {
             persistenceManager.putExercise(exercise);
         } catch (InsertErrorThrowable insertErrorThrowable) {
@@ -141,14 +140,63 @@ public class DomainController {
         persistenceManager.deleteJRE(routineName);
     }
 
+    public List<String> startRoutine(String routineName) {
+        int i = -1;
+        String auxName;
+        do {
+            ++i;
+            auxName = routinesList.get(i).getName();
+        } while(i+1 < routinesList.size() && (!routineName.equals(auxName)));
+        currentRoutine = i;
+        List<Exercise> exercises = new ArrayList<>();
+        List<String> exercisesNames = getAssignedExercises(routineName);
+        for(String exerciseName:exercisesNames) {
+            exercises.add(new Exercise(exerciseName));
+        }
+        routinesList.get(currentRoutine).setExercises(exercises);
+        System.out.println("ROUTINE STARTED");
+        return exercisesNames;
+    }
+
     public List<String> getExerciseInformation(String exerciseName) {
-        List<String> dummy = new ArrayList<>();
-        //repetitions
-        dummy.add("10");
-        //series
-        dummy.add("5");
-        //weight
-        dummy.add("30");
-        return dummy;
+        return persistenceManager.getLastExerciseDone(exerciseName);
+    }
+
+    public String getCurrentRoutineName() {
+        return exerciseList.get(currentRoutine).getName();
+    }
+
+    public void finishRoutine() {
+        currentRoutine = null;
+        System.out.println("ROUTINE FINISHED");
+    }
+
+    public  void realizeExercise(String exerciseName, String repetitions, String series, String weight) {
+        if(currentRoutine == null) return;
+
+        try {
+            persistenceManager.putExerciseDone(exerciseName,repetitions,series,weight);
+        } catch (InsertErrorThrowable insertErrorThrowable) {
+            insertErrorThrowable.printStackTrace();
+        }
+        List<Exercise> exercises = routinesList.get(currentRoutine).getExercises();
+        int i = -1;
+        String auxName;
+        do {
+            ++i;
+            auxName = exercises.get(i).getName();
+        } while(i+1 < exercises.size() && (!exerciseName.equals(auxName)));
+        exercises.remove(i);
+    }
+
+    public List<String> getRemainExercises() {
+        if(currentRoutine == null) return null;
+        List<String> remainExercises = new ArrayList<>();
+
+        for(Exercise exercise:routinesList.get(currentRoutine).getExercises()) {
+            remainExercises.add(exercise.getName());
+        }
+
+        return remainExercises;
     }
 }

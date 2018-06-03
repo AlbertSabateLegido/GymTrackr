@@ -147,6 +147,31 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         if(result == -1) throw new InsertErrorThrowable(EXERCISE_DONE_TABLE_NAME);
     }
 
+    public List<String> getLastExerciseDone(String exerciseName) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        List<String> rawLastExercise = new ArrayList<>();
+
+        Cursor cursor = sqLiteDatabase.query(EXERCISE_DONE_TABLE_NAME, new String[] {"MAX(" + EXERCISE_DONE_COLUMN_DATE + ")"},
+                EXERCISE_DONE_COLUMN_NAME + "=?",new String[]{exerciseName}, null,null,null);
+
+        String date = new String();
+        if(cursor.moveToFirst()) date = cursor.getString(0);
+        if(date == null || date.isEmpty()) return rawLastExercise;
+
+        String[] columns = {EXERCISE_DONE_COLUMN_REPETITIONS,EXERCISE_DONE_COLUMN_SERIES,EXERCISE_DONE_COLUMN_WEIGHT};
+
+        cursor = sqLiteDatabase.query(EXERCISE_DONE_TABLE_NAME, columns, EXERCISE_DONE_COLUMN_NAME + "=? AND "
+                + EXERCISE_DONE_COLUMN_DATE + "=?", new String[]{exerciseName,date}, null,null,null);
+
+        if(cursor.moveToFirst()) {
+            for(int i = 0; i < cursor.getColumnCount(); ++i) {
+                rawLastExercise.add(cursor.getString(i));
+            }
+        }
+        return rawLastExercise;
+    }
+
     public void putJRE(String routineName,String exerciceName) throws InsertErrorThrowable {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 

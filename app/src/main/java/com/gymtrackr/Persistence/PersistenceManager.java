@@ -22,6 +22,8 @@ public interface PersistenceManager {
 
     void putExerciseDone(String name,String repetitions,String series,String weight) throws InsertErrorThrowable;
 
+    List<String> getLastExerciseDone(String exerciseName);
+
     void putJRE(Routine routine) throws InsertErrorThrowable;
 
     void putJRE(String routineName,String exerciseName) throws InsertErrorThrowable;
