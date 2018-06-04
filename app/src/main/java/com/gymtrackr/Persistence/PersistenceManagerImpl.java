@@ -10,6 +10,7 @@ import com.gymtrackr.Throwables.InsertErrorThrowable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -68,6 +69,11 @@ public class PersistenceManagerImpl implements PersistenceManager {
         for(List<String> rawExercise:rawExercisesList) {
             Exercise exercise = new Exercise();
             exercise.setName(rawExercise.get(0));
+            exercise.setRepetitions(Integer.parseInt(rawExercise.get(1)));
+            exercise.setSeries(Integer.parseInt(rawExercise.get(2)));
+            ArrayList<String> muscles = new ArrayList<String>();
+            Collections.addAll(muscles, rawExercise.get(3).split(":"));
+            exercise.setMuscles(muscles);
             exercisesList.add(exercise);
         }
 

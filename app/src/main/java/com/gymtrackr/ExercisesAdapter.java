@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gymtrackr.Domain.DomainController;
+import com.gymtrackr.Domain.Exercise;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
     protected List<String> exerciseList;
     private String type;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView tvName;
         public CheckBox cbAssign;
         public ImageView ivAction;
@@ -33,6 +34,15 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
             cbAssign = view.findViewById(R.id.cbAssign);
             ivAction = view.findViewById(R.id.actionImage);
             this.view = view;
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(GymTrackr.getContext(),ShowExerciseActivity.class);
+            Exercise selectedExercise = DomainController.getInstance().getExerciseList().get(getAdapterPosition());
+            intent.putExtra(ShowExerciseActivity.EXTRA_EXERCISE, getAdapterPosition());
+            GymTrackr.getContext().startActivity(intent);
         }
     }
 
