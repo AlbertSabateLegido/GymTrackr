@@ -4,24 +4,37 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.gymtrackr.Domain.DomainController;
+
+import java.util.ArrayList;
 
 public class AddExerciseActivity extends AppCompatActivity {
 
     private EditText exerciseName;
     private EditText exerciseSeries;
     private EditText exerciseReps;
+    private ArrayList<CheckBox> muscleGroups;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_exercise);
+        getSupportActionBar().setTitle("New exercise");
 
-        exerciseName = findViewById(R.id.editText);
-        exerciseSeries = findViewById(R.id.editText2);
-        exerciseReps = findViewById(R.id.editText3);
+        exerciseName = findViewById(R.id.editTextExerciseName);
+        exerciseSeries = findViewById(R.id.editTextExerciseSeries);
+        exerciseReps = findViewById(R.id.editTextExerciseRepetitions);
+        muscleGroups = new ArrayList<>();
+        muscleGroups.add((CheckBox)findViewById(R.id.checkBoxAbs));
+        muscleGroups.add((CheckBox)findViewById(R.id.checkBoxBiceps));
+        muscleGroups.add((CheckBox)findViewById(R.id.checkBoxTriceps));
+        muscleGroups.add((CheckBox)findViewById(R.id.checkBoxBack));
+        muscleGroups.add((CheckBox)findViewById(R.id.checkBoxChest));
+        muscleGroups.add((CheckBox)findViewById(R.id.checkBoxLegs));
+        muscleGroups.add((CheckBox)findViewById(R.id.checkBoxShoulder));
 
         FloatingActionButton fab = findViewById(R.id.fabAddExercise);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -30,6 +43,7 @@ public class AddExerciseActivity extends AppCompatActivity {
                 DomainController domainController = DomainController.getInstance();
                 String name;
                 int series, reps;
+                ArrayList<String> muscles = new ArrayList<>();
                 if (!exerciseName.getText().toString().matches(""))
                     name = exerciseName.getText().toString();
                 else name = "New exercise";
@@ -39,7 +53,10 @@ public class AddExerciseActivity extends AppCompatActivity {
                 if (!exerciseReps.getText().toString().matches(""))
                     reps = Integer.parseInt(exerciseReps.getText().toString());
                 else reps = 0;
-                domainController.addExercise(name);
+                for (CheckBox muscle: muscleGroups) {
+                    if (muscle.isChecked()) muscles.add(muscle.getText().toString());
+                }
+                domainController.addExercise(name, series, reps, muscles);
                 finish();
             }
         });

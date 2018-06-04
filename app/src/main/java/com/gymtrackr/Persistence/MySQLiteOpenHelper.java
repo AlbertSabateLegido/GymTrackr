@@ -28,8 +28,14 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     public  static String EXERCISE_TABLE_NAME = "Exercises";
     private static String EXERCISE_COLUMN_NAME = "name";
+    private static String EXERCISE_COLUMN_REPETITIONS = "repetitions";
+    private static String EXERCISE_COLUMN_SERIES = "series";
+    private static String EXERCISE_COLUMN_MUSCLES = "muscles";
     private static String CREATE_EXERCISE_TABLE = "CREATE TABLE " + EXERCISE_TABLE_NAME + "(" +
             EXERCISE_COLUMN_NAME + " TEXT," +
+            EXERCISE_COLUMN_REPETITIONS + " TEXT," +
+            EXERCISE_COLUMN_SERIES      + " TEXT," +
+            EXERCISE_COLUMN_MUSCLES     + " TEXT," +
             "PRIMARY KEY(" + EXERCISE_COLUMN_NAME + "))";
 
     private static String EXERCISE_DONE_TABLE_NAME = "ExercisesDone";
@@ -119,11 +125,14 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                 new String[]{routineName});
     }
 
-    public void putExercise(String name) throws InsertErrorThrowable {
+    public void putExercise(String name,int repetitions,int series, String muscles) throws InsertErrorThrowable {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(EXERCISE_COLUMN_NAME,name);
+        contentValues.put(EXERCISE_COLUMN_REPETITIONS,repetitions);
+        contentValues.put(EXERCISE_COLUMN_SERIES,series);
+        contentValues.put(EXERCISE_COLUMN_MUSCLES, muscles);
 
         long result = sqLiteDatabase.insert(EXERCISE_TABLE_NAME,null,contentValues);
 

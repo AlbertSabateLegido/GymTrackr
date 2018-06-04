@@ -2,6 +2,7 @@ package com.gymtrackr.Persistence;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.gymtrackr.Domain.Exercise;
 import com.gymtrackr.Domain.Routine;
@@ -52,7 +53,11 @@ public class PersistenceManagerImpl implements PersistenceManager {
 
     @Override
     public void putExercise(Exercise exercise) throws InsertErrorThrowable {
-        mySQLiteOpenHelper.putExercise(exercise.getName());
+        String muscles = new String();
+        for (String muscle: exercise.getMuscles()) {
+            muscles.concat(muscle + ":");
+        }
+        mySQLiteOpenHelper.putExercise(exercise.getName(), exercise.getRepetitions(), exercise.getSeries(), muscles);
     }
 
     @Override

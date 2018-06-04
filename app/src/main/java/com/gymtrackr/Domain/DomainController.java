@@ -30,8 +30,9 @@ public class DomainController {
         return myDomainController;
     }
 
-    public void addExercise(String name) {
-        Exercise exercise = new Exercise(name);
+    public void addExercise(String name, int series, int repetitions, ArrayList<String> muscles) {
+        Exercise exercise = new Exercise(name, series, repetitions);
+        exercise.setMuscles(muscles);
         try {
             persistenceManager.putExercise(exercise);
         } catch (InsertErrorThrowable insertErrorThrowable) {

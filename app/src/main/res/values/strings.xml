@@ -15,10 +15,24 @@
 
     <string name="title_add_routine">New routine</string>
 
-    <string name="label_name">Name</string>
+    <string name="hint_name">Name</string>
+    <string name="label_name">How do you want to call this exercise?</string>
+    <string name="hint_series">Series</string>
+    <string name="label_series">How many series?</string>
+    <string name="hint_repetitions">Reps</string>
+    <string name="label_repetitions">How many repetitions?</string>
     <string name="label_day">Day</string>
     <string name="hint_text_routine_name">Routine name</string>
     <string name="assigned_list_empty">At least one exercise be must selected</string>
     <string name="empty_name">Name cannot be empty</string>
+
+    <string name="label_muscle">Choose all the muscle groups involved:</string>
+    <string name="muscle_biceps">Biceps</string>
+    <string name="muscle_triceps">Triceps</string>
+    <string name="muscle_chest">Chest</string>
+    <string name="muscle_shoulder">Shoulder</string>
+    <string name="muscle_back">Back</string>
+    <string name="muscle_legs">Legs</string>
+    <string name="muscle_abs">Abs</string>
 
 </resources>
