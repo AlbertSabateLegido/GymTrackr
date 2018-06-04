@@ -55,7 +55,7 @@ public class PersistenceManagerImpl implements PersistenceManager {
     public void putExercise(Exercise exercise) throws InsertErrorThrowable {
         String muscles = new String();
         for (String muscle: exercise.getMuscles()) {
-            muscles.concat(muscle + ":");
+            muscles = muscles.concat(muscle + ":");
         }
         mySQLiteOpenHelper.putExercise(exercise.getName(), exercise.getRepetitions(), exercise.getSeries(), muscles);
     }
