@@ -14,5 +14,6 @@
     <color name="accent_material_light">#009688</color>
     <color name="grey">#e0e0e0</color>
     <color name="background_material_light">#616161</color>
+    <color name="colorText">#ffffff</color>
 
 </resources>
