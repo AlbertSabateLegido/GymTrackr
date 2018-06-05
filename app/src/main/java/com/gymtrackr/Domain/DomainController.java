@@ -1,5 +1,7 @@
 package com.gymtrackr.Domain;
 
+import android.util.Pair;
+
 import com.gymtrackr.GymTrackr;
 import com.gymtrackr.Persistence.PersistenceManager;
 import com.gymtrackr.Persistence.PersistenceManagerImpl;
@@ -161,6 +163,10 @@ public class DomainController {
 
     public List<String> getExerciseInformation(String exerciseName) {
         return persistenceManager.getLastExerciseDone(exerciseName);
+    }
+
+    public List<Pair<String, Integer>> getExerciseInformationDetailed(String exerciseName) {
+        return persistenceManager.getExerciseHistory(exerciseName);
     }
 
     public String getCurrentRoutineName() {

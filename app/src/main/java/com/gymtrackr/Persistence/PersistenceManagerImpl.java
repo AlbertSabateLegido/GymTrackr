@@ -3,8 +3,10 @@ package com.gymtrackr.Persistence;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 
 import com.gymtrackr.Domain.Exercise;
+import com.gymtrackr.Domain.ExerciseDone;
 import com.gymtrackr.Domain.Routine;
 import com.gymtrackr.Throwables.InsertErrorThrowable;
 
@@ -116,5 +118,20 @@ public class PersistenceManagerImpl implements PersistenceManager {
     @Override
     public void deleteJRE(String routineName) {
         mySQLiteOpenHelper.deleteJRE(routineName);
+    }
+
+    @Override
+    public List<Pair<String, Integer>> getExerciseHistory(String name) {
+        List<List<String>> rawExercisesList = mySQLiteOpenHelper.getExerciseHistory(name);
+        List<Pair<String, Integer>> pairList = new ArrayList<>();
+
+        for(List<String> rawExercise:rawExercisesList) {
+            String date = rawExercise.get(0);
+            Integer weight = Integer.parseInt(rawExercise.get(1));
+            Pair<String, Integer> pair = new Pair<String, Integer>(date, weight);
+            pairList.add(pair);
+        }
+
+        return pairList;
     }
 }

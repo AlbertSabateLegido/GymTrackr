@@ -1,6 +1,9 @@
 package com.gymtrackr.Persistence;
 
+import android.util.Pair;
+
 import com.gymtrackr.Domain.Exercise;
+import com.gymtrackr.Domain.ExerciseDone;
 import com.gymtrackr.Domain.Routine;
 import com.gymtrackr.Throwables.InsertErrorThrowable;
 
@@ -31,4 +34,6 @@ public interface PersistenceManager {
     List<String> getJRE(String routineName);
 
     void deleteJRE(String routineName);
+
+    List<Pair<String, Integer>> getExerciseHistory(String name);
 }

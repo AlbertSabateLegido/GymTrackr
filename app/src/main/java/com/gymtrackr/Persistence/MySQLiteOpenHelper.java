@@ -181,6 +181,29 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         return rawLastExercise;
     }
 
+    public List<List<String>> getExerciseHistory(String name) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.rawQuery("select " + EXERCISE_DONE_COLUMN_DATE + ", " + EXERCISE_DONE_COLUMN_WEIGHT + " " +
+                                                     "from " + EXERCISE_DONE_TABLE_NAME + " " +
+                                                     "where " + EXERCISE_DONE_COLUMN_NAME + " = \"" + name + "\"",
+                null);
+
+        List<List<String>> tableList = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                List<String> item = new ArrayList<>();
+                for(int i = 0; i < cursor.getColumnCount(); ++i) {
+                    item.add(cursor.getString(i));
+                }
+                tableList.add(item);
+            } while (cursor.moveToNext());
+        }
+
+        return tableList;
+    }
+
     public void putJRE(String routineName,String exerciceName) throws InsertErrorThrowable {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 

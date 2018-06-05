@@ -22,4 +22,10 @@
         android:id="@+id/textViewExerciseMuscles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:id="@+id/graph" />
+
 </LinearLayout>

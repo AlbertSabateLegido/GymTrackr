@@ -5,6 +5,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.gymtrackr.Domain.DomainController;
+import com.gymtrackr.Domain.Exercise;
+
 import java.util.List;
 
 public class ShowAssignedExercisesAdapter extends ExercisesAdapter {
@@ -17,7 +20,7 @@ public class ShowAssignedExercisesAdapter extends ExercisesAdapter {
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         if (position == 0) {
             holder.tvName.setText("Start Routine");
             holder.ivAction.setImageDrawable(GymTrackr.getContext().getResources().
@@ -52,7 +55,18 @@ public class ShowAssignedExercisesAdapter extends ExercisesAdapter {
                 }
             });
         }
-        else super.onBindViewHolder(holder,position-2);
+        else {
+            super.onBindViewHolder(holder,position-2);
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(GymTrackr.getContext(),ShowExerciseActivity.class);
+                    Exercise selectedExercise = DomainController.getInstance().getExerciseList().get(position-2);
+                    intent.putExtra(ShowExerciseActivity.EXTRA_EXERCISE, position-2);
+                    GymTrackr.getContext().startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
