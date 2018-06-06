@@ -60,6 +60,16 @@ public class PersistenceManagerImpl implements PersistenceManager {
     }
 
     @Override
+    public void updateExerciseSeries(String name, String newSeries) {
+        mySQLiteOpenHelper.updateExerciseSeries(name,newSeries);
+    }
+
+    @Override
+    public void updateExerciseRepetitions(String name, String newReps) {
+        mySQLiteOpenHelper.updateExerciseRepetitions(name,newReps);
+    }
+
+    @Override
     public void putExercise(Exercise exercise) throws InsertErrorThrowable {
         String muscles = new String();
         for (String muscle: exercise.getMuscles()) {
@@ -128,6 +138,11 @@ public class PersistenceManagerImpl implements PersistenceManager {
     @Override
     public void deleteExercise(String exerciseName) {
         mySQLiteOpenHelper.deleteExercise(exerciseName);
+    }
+
+    @Override
+    public void deleteRoutine(String routineName) {
+        mySQLiteOpenHelper.deleteRoutine(routineName);
     }
 
     @Override

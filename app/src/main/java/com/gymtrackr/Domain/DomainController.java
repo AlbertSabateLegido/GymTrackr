@@ -50,14 +50,26 @@ public class DomainController {
         });
     }
 
-    public void updateExerciseName(String oldName, String newName) {
+    public void updateExercise(String oldName, String newName, String series, String reps) {
         int i = 0;
         boolean found = false;
         while (i < exerciseList.size() && !found) {
             found = exerciseList.get(i).getName().equals(oldName);
             if (found) {
-                exerciseList.get(i).setName(newName);
-                persistenceManager.updateExerciseName(oldName, newName);
+                if (!newName.equals(oldName)) {
+                    exerciseList.get(i).setName(newName);
+                    persistenceManager.updateExerciseName(oldName, newName);
+                    oldName = newName;
+                }
+                if (Integer.parseInt(series) != exerciseList.get(i).getSeries()) {
+                    exerciseList.get(i).setSeries(Integer.parseInt(series));
+                    persistenceManager.updateExerciseSeries(oldName, series);
+                }
+                if (Integer.parseInt(reps) != exerciseList.get(i).getRepetitions()) {
+                    exerciseList.get(i).setRepetitions(Integer.parseInt(reps));
+                    persistenceManager.updateExerciseSeries(oldName, reps);
+                }
+
             }
             ++i;
         }
@@ -179,6 +191,17 @@ public class DomainController {
         while(i < exerciseList.size() && !found) {
             found = exerciseList.get(i).getName().equals(exerciseName);
             if (found) exerciseList.remove(i);
+            ++i;
+        }
+    }
+
+    public void deleteRoutine(String routineName) {
+        persistenceManager.deleteRoutine(routineName);
+        boolean found = false;
+        int i = 0;
+        while(i < routinesList.size() && !found) {
+            found = routinesList.get(i).getName().equals(routineName);
+            if (found) routinesList.remove(i);
             ++i;
         }
     }

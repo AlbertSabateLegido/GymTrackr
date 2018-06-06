@@ -55,5 +55,6 @@
 
     <string name="dialog_message_exercise">Are you sure you want to delete this exercise?</string>
     <string name="dialog_title_exercise">Delete</string>
+    <string name="action_done">Done</string>
 
 </resources>

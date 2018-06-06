@@ -8,6 +8,8 @@ import android.widget.EditText;
 
 import com.gymtrackr.Domain.DomainController;
 
+import java.util.List;
+
 public class RealizeExercise extends AppCompatActivity {
 
     public static String EXTRA_EXERCISE_NAME = "exercise_name";
@@ -22,10 +24,6 @@ public class RealizeExercise extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) exerciseName = bundle.getString(EXTRA_EXERCISE_NAME);
 
-        String routineName = DomainController.getInstance().getCurrentRoutineName();
-
-        final EditText etRepetitions = findViewById(R.id.etRepetitions);
-        final EditText etSeries = findViewById(R.id.etSeries);
         final EditText etWeight = findViewById(R.id.etWeight);
 
         Button bCancel = findViewById(R.id.bCancel);
@@ -36,14 +34,19 @@ public class RealizeExercise extends AppCompatActivity {
             }
         });
 
+        List<String> exerciseInfo = DomainController.getInstance().getExerciseInformation(exerciseName);
+        String weight = "";
+        if (exerciseInfo.size() > 2) weight = String.valueOf(exerciseInfo.get(2));
+        etWeight.setText(weight);
+
         Button bAccept = findViewById(R.id.bAccept);
         final String finalExerciseName = exerciseName;
         bAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String repetitions = etRepetitions.getText().toString();
+                String repetitions = String.valueOf(DomainController.getInstance().getExercise(finalExerciseName).getRepetitions());//etRepetitions.getText().toString();
                 if(repetitions.isEmpty()) return;
-                String series = etSeries.getText().toString();
+                String series = String.valueOf(DomainController.getInstance().getExercise(finalExerciseName).getSeries());//etSeries.getText().toString();
                 if(series.isEmpty()) return;
                 String weight = etWeight.getText().toString();
                 if(weight.isEmpty()) return;

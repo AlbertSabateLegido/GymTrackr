@@ -1,5 +1,6 @@
 package com.gymtrackr;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +9,10 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,6 +26,11 @@ public class ShowRoutineActivity extends AppCompatActivity {
     public static String EXTRA_ROUTINE_NAME = "RoutineName";
 
     private String routineName;
+    ImageView deleteButton;
+    EditText routineNameField;
+    Spinner dayField;
+    ImageView editButton;
+    boolean isEditing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +48,19 @@ public class ShowRoutineActivity extends AppCompatActivity {
 
         List<String> rawRoutine = DomainController.getInstance().getRoutineInformation(routineName);
 
-        TextView tvName = findViewById(R.id.etRoutineName);
-        tvName.setText(routineName);
+        routineNameField = findViewById(R.id.etRoutineName);
+        routineNameField.setText(routineName);
+        routineNameField.setEnabled(false);
 
-        Spinner spinner = findViewById(R.id.spinnerDay);
+        dayField = findViewById(R.id.spinnerDay);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.days_of_the_week_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setSelection(Integer.valueOf(rawRoutine.get(0)));
-        spinner.setEnabled(false);
+        dayField.setAdapter(adapter);
+        dayField.setSelection(Integer.valueOf(rawRoutine.get(0)));
+        dayField.setEnabled(false);
         final String finalRoutineName = routineName;
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        dayField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 DomainController.getInstance().setRoutineDayOfTheWeek(finalRoutineName,i);
@@ -65,14 +74,34 @@ public class ShowRoutineActivity extends AppCompatActivity {
 
         loadRecyclerView(routineName);
 
-        ImageView ivEdit = findViewById(R.id.ivEdit);
-        ivEdit.setOnClickListener(new View.OnClickListener() {
+        editButton = findViewById(R.id.ivEdit);
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(GymTrackr.getContext(),EditNameActivity.class);
-                intent.putExtra(EditNameActivity.EXTRA_NAME, finalRoutineName);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                startActivity(intent);
+                isEditing = !isEditing;
+
+                routineNameField.setEnabled(isEditing);
+                dayField.setEnabled(isEditing);
+                if (isEditing) {
+                    editButton.setImageResource(R.drawable.ic_action_done);
+                    routineNameField.requestFocus();
+                    int pos = routineNameField.getText().length();
+                    routineNameField.setSelection(pos);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(routineNameField, InputMethodManager.SHOW_IMPLICIT);
+                }
+                else {
+                    editButton.setImageResource(R.drawable.ic_action_edit);
+                    DomainController.getInstance().setRoutineName(routineName, routineNameField.getText().toString());
+                }
+            }
+        });
+
+        deleteButton = findViewById(R.id.ivDelete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DomainController.getInstance().deleteRoutine(finalRoutineName);
                 finish();
             }
         });

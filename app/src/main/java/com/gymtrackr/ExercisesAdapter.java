@@ -28,11 +28,14 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
         public ImageView ivAction;
         public View view;
 
+        TextView exerciseMusclesField;
+
         public MyViewHolder(View view) {
             super(view);
             tvName = view.findViewById(R.id.name);
             cbAssign = view.findViewById(R.id.cbAssign);
-            ivAction = view.findViewById(R.id.actionImage);
+            //ivAction = view.findViewById(R.id.actionImage);
+            exerciseMusclesField = view.findViewById(R.id.muscles);
             this.view = view;
             view.setOnClickListener(this);
         }
@@ -65,6 +68,17 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
         String exerciseName = exerciseList.get(position);
 
         holder.tvName.setText(exerciseName);
+        String allMuscles = " (";
+        boolean first = true;
+        for (String muscle: DomainController.getInstance().getExercise(exerciseName).getMuscles() ) {
+            if (first) {
+                allMuscles += (muscle);
+                first = false;
+            }
+            else allMuscles += (", " + muscle);
+        }
+        allMuscles += ") ";
+        holder.exerciseMusclesField.setText(allMuscles);
 
         if(type.equals(ASSIGN)) {
             holder.cbAssign.setVisibility(View.VISIBLE);

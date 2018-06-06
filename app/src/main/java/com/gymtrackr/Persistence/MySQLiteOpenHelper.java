@@ -148,6 +148,26 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                 new String[]{oldName});
     }
 
+    public void updateExerciseSeries(String name, String newSeries) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(EXERCISE_COLUMN_SERIES,newSeries);
+
+        sqLiteDatabase.update(EXERCISE_TABLE_NAME,contentValues,EXERCISE_COLUMN_NAME + "= ?",
+                new String[]{name});
+    }
+
+    public void updateExerciseRepetitions(String name, String newReps) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(EXERCISE_COLUMN_REPETITIONS,newReps);
+
+        sqLiteDatabase.update(EXERCISE_TABLE_NAME,contentValues,EXERCISE_COLUMN_NAME + "= ?",
+                new String[]{name});
+    }
+
     public void putExercise(String name,int repetitions,int series, String muscles) throws InsertErrorThrowable {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
@@ -293,5 +313,11 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.delete(EXERCISE_TABLE_NAME,EXERCISE_COLUMN_NAME + "=?", new String[]{exerciseName});
         sqLiteDatabase.delete(EXERCISE_DONE_TABLE_NAME,EXERCISE_DONE_COLUMN_NAME + "=?", new String[]{exerciseName});
         sqLiteDatabase.delete(JRE_TABLE_NAME,JRE_COLUMN_EXERCISE_NAME + "=?", new String[]{exerciseName});
+    }
+
+    public void deleteRoutine(String routineName) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete(ROUTINE_TABLE_NAME,ROUTINE_COLUMN_NAME + "=?", new String[]{routineName});
+        this.deleteJRE(routineName);
     }
 }

@@ -20,6 +20,8 @@ public interface PersistenceManager {
     void updateRoutineDayOfTheWeek(String finalRoutineName, int i);
 
     void updateExerciseName(String oldName, String newName);
+    void updateExerciseSeries(String name, String newSeries);
+    void updateExerciseRepetitions(String name, String newReps);
 
     void putExercise(Exercise exercise) throws InsertErrorThrowable;
 
@@ -38,6 +40,8 @@ public interface PersistenceManager {
     void deleteJRE(String routineName);
 
     void deleteExercise(String exerciseName);
+
+    void deleteRoutine(String routineName);
 
     List<Pair<String, Integer>> getExerciseHistory(String name);
 }

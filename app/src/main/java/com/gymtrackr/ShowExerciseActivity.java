@@ -1,5 +1,6 @@
 package com.gymtrackr;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.text.StaticLayout;
 import android.util.Pair;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,7 +63,7 @@ public class ShowExerciseActivity extends AppCompatActivity {
         exerciseSeriesField = findViewById(R.id.editTextExerciseSeries);
         exerciseRepetitionsField = findViewById(R.id.editTextExerciseRepetitions);
 
-        getSupportActionBar().setTitle(exercise.getName());
+        getSupportActionBar().hide();
 
         // setting up the fields
         exerciseNameField.setText(exercise.getName());
@@ -141,10 +143,17 @@ public class ShowExerciseActivity extends AppCompatActivity {
                 if (isEditing) {
                     editButton.setImageResource(R.drawable.ic_action_done);
                     exerciseNameField.requestFocus();
+                    int pos = exerciseNameField.getText().length();
+                    exerciseNameField.setSelection(pos);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(exerciseNameField, InputMethodManager.SHOW_IMPLICIT);
                 }
                 else {
                     editButton.setImageResource(R.drawable.ic_action_edit);
-                    DomainController.getInstance().updateExerciseName(exercise.getName(), exerciseNameField.getText().toString());
+                    DomainController.getInstance().updateExercise(exercise.getName(),
+                            exerciseNameField.getText().toString(),
+                            exerciseSeriesField.getText().toString(),
+                            exerciseRepetitionsField.getText().toString());
                 }
             }
         });

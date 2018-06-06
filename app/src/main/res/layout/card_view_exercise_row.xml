@@ -31,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_below="@id/name"
-                android:textSize="@dimen/font_size"/>
+                android:textSize="@dimen/font_size"
+                android:textColor="@color/dark_grey"/>
 
             <TextView
                 android:id="@+id/weight"
@@ -40,15 +41,16 @@
                 android:layout_toEndOf="@id/repetitions_series"
                 android:layout_alignBottom="@id/repetitions_series"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:textSize="@dimen/font_size"/>
+                android:textSize="@dimen/font_size"
+                android:textColor="@color/dark_grey"/>
 
             <Button
                 android:id="@+id/bDone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:text="Done"/>
+                android:text="@string/action_done"/>
 
         </RelativeLayout>
 
