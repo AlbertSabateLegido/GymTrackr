@@ -1,8 +1,8 @@
-#Gym Tracker
+# Gym Tracker
 ---------------------------------------------
 GymTrackr is an Android app which helps you track your gym routines and exercises. This project is currently in development, although a functional version is available.
 
-###Main functionalities
+### Main functionalities
 -------------------------
 
 * **Manage exercises -**  An exercise consists of: 
@@ -21,6 +21,6 @@ GymTrackr is an Android app which helps you track your gym routines and exercise
 
 * **Track exercises -** You can see the weight used in each exercise for the last 5 times 
 
-###License
+### License
 ---------------
 GymTrackr is distributed under the Apache 2.0 license
