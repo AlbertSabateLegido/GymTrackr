@@ -5,7 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.StaticLayout;
 import android.util.Pair;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gymtrackr.Domain.DomainController;
 import com.gymtrackr.Domain.Exercise;
@@ -29,24 +33,43 @@ public class ShowExerciseActivity extends AppCompatActivity {
 
     private Exercise exercise;
 
+    private boolean isEditing = false;
+    EditText exerciseNameField;
+    EditText exerciseSeriesField;
+    EditText exerciseRepetitionsField;
+    ImageView editButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_exercise);
 
+        // getting the Exercise to be shown name
         Bundle bundle = getIntent().getExtras();
-        int position = 0;
+        String exerciseName;
         if(bundle != null) {
-            position = bundle.getInt(EXTRA_EXERCISE);
-            exercise = DomainController.getInstance().getExerciseList().get(position);
+            exerciseName = bundle.getString(EXTRA_EXERCISE);
+            // getting the Exercise given its name
+            exercise = DomainController.getInstance().getExercise(exerciseName);
         }
         else exercise = new Exercise();
 
-        TextView name = findViewById(R.id.textViewExerciseName);
-        name.setText(exercise.getName());
+        // getting all the fields
+        exerciseNameField = findViewById(R.id.editTextExerciseName);
+        exerciseSeriesField = findViewById(R.id.editTextExerciseSeries);
+        exerciseRepetitionsField = findViewById(R.id.editTextExerciseRepetitions);
+
         getSupportActionBar().setTitle(exercise.getName());
-        TextView seriesReps = findViewById(R.id.textViewExerciseSeriesReps);
-        seriesReps.setText(String.valueOf(exercise.getSeries())+"x"+String.valueOf(exercise.getRepetitions()));
+
+        // setting up the fields
+        exerciseNameField.setText(exercise.getName());
+        exerciseNameField.setEnabled(false);
+        exerciseSeriesField.setText(String.valueOf(exercise.getSeries()));
+        exerciseSeriesField.setEnabled(false);
+        exerciseRepetitionsField.setText(String.valueOf(exercise.getRepetitions()));
+        exerciseRepetitionsField.setEnabled(false);
+
+        //-----------NOT THE FINAL VERSION-------------
         TextView muscles = findViewById(R.id.textViewExerciseMuscles);
         String allMuscles = "";
         boolean first = true;
@@ -58,27 +81,17 @@ public class ShowExerciseActivity extends AppCompatActivity {
             else allMuscles += (", " + muscle);
         }
         muscles.setText(allMuscles);
+        //----------------------------------------------
 
+        // setting up the chart
         List<Pair<String, Integer>> exerciseInfo = DomainController.getInstance().getExerciseInformationDetailed(exercise.getName());
-
-
-
-
-
-
-
         int nb_exercises = 5;
-
-
         DataPoint[] exerciseData = new DataPoint[nb_exercises];
         String[] labelsX = new String[nb_exercises];
-
-
         for (int i = 0; i < nb_exercises; ++i) {
             exerciseData[i] = new DataPoint(i,0);
             labelsX[i] = "No data";
         }
-
         int max_weight = 0;
         for (int i= 0; i < Math.min(exerciseInfo.size(),nb_exercises); ++i) {
             int weight = exerciseInfo.get(exerciseInfo.size() - Math.min(exerciseInfo.size(),nb_exercises) + i).second;
@@ -87,32 +100,20 @@ public class ShowExerciseActivity extends AppCompatActivity {
             if (weight > max_weight) max_weight = weight;
         }
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(exerciseData);
-
-
-
-
         GraphView graph = findViewById(R.id.graph);
         graph.addSeries(series);
-
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMinY(0);
         graph.getViewport().setMaxY(max_weight+10);
-
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
         staticLabelsFormatter.setHorizontalLabels(labelsX);
-
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-        //graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
         graph.getGridLabelRenderer().setHorizontalLabelsAngle(90+45-10);
         graph.getGridLabelRenderer().setLabelsSpace(10);
         graph.setTitle(getString(R.string.graph_title));
         graph.getGridLabelRenderer().setPadding(40);
         graph.getGridLabelRenderer().setVerticalAxisTitle(getString(R.string.graph_axisY));
-
-
         series.setSpacing(50);
-
-
         // draw values on top
         series.setDrawValuesOnTop(true);
         series.setValuesOnTopColor(getResources().getColor(R.color.colorAccent));
@@ -123,6 +124,28 @@ public class ShowExerciseActivity extends AppCompatActivity {
             }
         });
         //series.setValuesOnTopSize(50);
+
+
+        // setting up the behaviour of the edit button
+        editButton = findViewById(R.id.imageViewEditName);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isEditing = !isEditing;
+
+                exerciseNameField.setEnabled(isEditing);
+                exerciseSeriesField.setEnabled(isEditing);
+                exerciseRepetitionsField.setEnabled(isEditing);
+                if (isEditing) {
+                    editButton.setImageResource(R.drawable.ic_action_done);
+                    exerciseNameField.requestFocus();
+                }
+                else {
+                    editButton.setImageResource(R.drawable.ic_action_edit);
+                    DomainController.getInstance().updateExerciseName(exercise.getName(), exerciseNameField.getText().toString());
+                }
+            }
+        });
 
     }
 }

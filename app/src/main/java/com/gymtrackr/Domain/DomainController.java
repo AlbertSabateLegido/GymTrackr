@@ -9,6 +9,7 @@ import com.gymtrackr.Throwables.InsertErrorThrowable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class DomainController {
@@ -41,9 +42,37 @@ public class DomainController {
             insertErrorThrowable.printStackTrace();
         }
         exerciseList.add(exercise);
+        Collections.sort(exerciseList, new Comparator<Exercise>() {
+            @Override
+            public int compare(Exercise o1, Exercise o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+    }
+
+    public void updateExerciseName(String oldName, String newName) {
+        int i = 0;
+        boolean found = false;
+        while (i < exerciseList.size() && !found) {
+            found = exerciseList.get(i).getName().equals(oldName);
+            if (found) {
+                exerciseList.get(i).setName(newName);
+                persistenceManager.updateExerciseName(oldName, newName);
+            }
+            ++i;
+        }
+        Collections.sort(exerciseList, new Comparator<Exercise>() {
+            @Override
+            public int compare(Exercise o1, Exercise o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
     }
 
     public Exercise getExercise(String name) {
+        for (Exercise exercise: exerciseList) {
+            if (exercise.getName().equals(name)) return exercise;
+        }
         return null;
     }
 

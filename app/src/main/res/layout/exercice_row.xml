@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="20dp"
+    android:paddingBottom="15dp"
     android:paddingEnd="20dp"
-    android:paddingTop="15dp"
-    android:paddingBottom="15dp">
+    android:paddingStart="20dp"
+    android:paddingTop="15dp">
 
     <ImageView
         android:id="@+id/actionImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/actionImage"
-        android:textSize="@dimen/font_size"
+        android:text="Hola"
         android:textColor="@color/black"
-        android:text="Hola"/>
+        android:textSize="@dimen/font_size" />
+
+    <TextView
+        android:id="@+id/muscles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" (hola)"/>
 
     <CheckBox
         android:id="@+id/cbAssign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
-</RelativeLayout>
+
+
+</LinearLayout>

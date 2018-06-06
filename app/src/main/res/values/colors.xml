@@ -15,5 +15,6 @@
     <color name="grey">#e0e0e0</color>
     <color name="background_material_light">#616161</color>
     <color name="colorText">#ffffff</color>
+    <color name="deleteButtonColor">#DC143C</color>
 
 </resources>

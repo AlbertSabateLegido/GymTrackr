@@ -48,8 +48,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             @Override
             public void onClick(View view) {
                 if (tabSelected == TabSelected.ROUTINES){
-                    Intent intent = new Intent(GymTrackr.getContext(), AssignExercisesActivity.class);
-                    startActivity(intent);
+                    startActivity(new Intent(GymTrackr.getContext(), AssignExercisesActivity.class));
                 }
                 else if (tabSelected == TabSelected.EXERCISES) {
                     startActivity(new Intent(GymTrackr.getContext(), AddExerciseActivity.class));
@@ -61,12 +60,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         persistenceManager.getRoutines();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
@@ -96,9 +89,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     public void onResume() {
         super.onResume();
         if (tabSelected == TabSelected.EXERCISES) {
-            int i = DomainController.getInstance().getExerciseListSize();
-            int j = exerciseRecyclerViewFragment.getExerciseListSize();
-            if(i > j) exerciseRecyclerViewFragment.addExercise(DomainController.getInstance().getLastExerciseName());
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.container,new ExerciseRecyclerViewFragment());
+            ft.commit();
+            //int i = DomainController.getInstance().getExerciseListSize();
+            //int j = exerciseRecyclerViewFragment.getExerciseListSize();
+            //if(i > j) exerciseRecyclerViewFragment.addExercise(DomainController.getInstance().getLastExerciseName());
+            //exerciseRecyclerViewFragment.update();
         }
         else {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

@@ -55,6 +55,11 @@ public class PersistenceManagerImpl implements PersistenceManager {
     }
 
     @Override
+    public void updateExerciseName(String oldName, String newName) {
+        mySQLiteOpenHelper.updateExerciseName(oldName, newName);
+    }
+
+    @Override
     public void putExercise(Exercise exercise) throws InsertErrorThrowable {
         String muscles = new String();
         for (String muscle: exercise.getMuscles()) {

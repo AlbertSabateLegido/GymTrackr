@@ -41,6 +41,10 @@ public class ExerciseRecyclerViewFragment extends Fragment {
         exercisesAdapter.addExercise(name);
     }
 
+    public void update() {
+        exercisesAdapter.update();
+    }
+
     public int getExerciseListSize() {
         return exercisesAdapter.getItemCount();
     }

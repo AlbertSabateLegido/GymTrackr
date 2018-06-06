@@ -40,8 +40,8 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(GymTrackr.getContext(),ShowExerciseActivity.class);
-            Exercise selectedExercise = DomainController.getInstance().getExerciseList().get(getAdapterPosition());
-            intent.putExtra(ShowExerciseActivity.EXTRA_EXERCISE, getAdapterPosition());
+            String selectedExercise = tvName.getText().toString();
+            intent.putExtra(ShowExerciseActivity.EXTRA_EXERCISE, selectedExercise);
             GymTrackr.getContext().startActivity(intent);
         }
     }
@@ -82,6 +82,10 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
 
     public void addExercise(String name) {
         exerciseList.add(name);
+        notifyDataSetChanged();
+    }
+
+    public void update() {
         notifyDataSetChanged();
     }
 

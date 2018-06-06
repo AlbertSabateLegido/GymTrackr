@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import com.gymtrackr.Throwables.InsertErrorThrowable;
 
@@ -123,6 +124,28 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.update(ROUTINE_TABLE_NAME,contentValues,ROUTINE_COLUMN_NAME + "= ?",
                 new String[]{routineName});
+    }
+
+    public void updateExerciseName(String oldName, String newName) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(EXERCISE_COLUMN_NAME,newName);
+
+        sqLiteDatabase.update(EXERCISE_TABLE_NAME,contentValues,EXERCISE_COLUMN_NAME + "= ?",
+                new String[]{oldName});
+
+        contentValues = new ContentValues();
+        contentValues.put(EXERCISE_DONE_COLUMN_NAME,newName);
+
+        sqLiteDatabase.update(EXERCISE_DONE_TABLE_NAME,contentValues,EXERCISE_DONE_COLUMN_NAME + "= ?",
+                new String[]{oldName});
+
+        contentValues = new ContentValues();
+        contentValues.put(JRE_COLUMN_EXERCISE_NAME,newName);
+
+        sqLiteDatabase.update(JRE_TABLE_NAME,contentValues,JRE_COLUMN_EXERCISE_NAME + "= ?",
+                new String[]{oldName});
     }
 
     public void putExercise(String name,int repetitions,int series, String muscles) throws InsertErrorThrowable {
