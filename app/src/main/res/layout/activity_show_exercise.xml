@@ -8,6 +8,34 @@
     tools:context=".ShowExerciseActivity">
 
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_light" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/graph"
+                android:layout_width="match_parent"
+                android:layout_height="300dip"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/graph_axisX"
+                android:textAlignment="center"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
     <TextView
         android:id="@+id/textViewExerciseName"
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -19,11 +47,19 @@
 
     <TextView
         android:id="@+id/textViewExerciseSeriesReps"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textViewExerciseMusclesLabel"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:text="@string/label_exercise_muscles"
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/textViewExerciseMuscles"
@@ -32,13 +68,5 @@
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-    <com.jjoe64.graphview.GraphView
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_width="match_parent"
-        android:layout_height="200dip"
-        android:id="@+id/graph" />
 
 </LinearLayout>

@@ -56,7 +56,7 @@ public class DomainController {
         for (Exercise exercise:exerciseList) {
             exerciseNames.add(exercise.getName());
         }
-        Collections.sort(exerciseNames);
+        //Collections.sort(exerciseNames);
         return exerciseNames;
     }
 

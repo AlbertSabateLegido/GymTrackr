@@ -35,4 +35,9 @@
     <string name="muscle_legs">Legs</string>
     <string name="muscle_abs">Abs</string>
 
+    <string name="label_exercise_muscles">Muscles involved:</string>
+    <string name="graph_title">Weight over time</string>
+    <string name="graph_axisY">Weight (in kg)</string>
+    <string name="graph_axisX">Date</string>
+
 </resources>
