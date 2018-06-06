@@ -6,6 +6,7 @@ import com.gymtrackr.GymTrackr;
 import com.gymtrackr.Persistence.PersistenceManager;
 import com.gymtrackr.Persistence.PersistenceManagerImpl;
 import com.gymtrackr.Throwables.InsertErrorThrowable;
+import com.gymtrackr.Throwables.NameAlreadyExistsThrowable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,15 +47,15 @@ public class DomainController {
         });
     }
 
-    public void updateExercise(String oldName, String newName, String series, String reps) {
+    public void updateExercise(String oldName, String newName, String series, String reps) throws NameAlreadyExistsThrowable {
         int i = 0;
         boolean found = false;
         while (i < exerciseList.size() && !found) {
             found = exerciseList.get(i).getName().equals(oldName);
             if (found) {
                 if (!newName.equals(oldName)) {
-                    exerciseList.get(i).setName(newName);
                     persistenceManager.updateExerciseName(oldName, newName);
+                    exerciseList.get(i).setName(newName);
                     oldName = newName;
                 }
                 if (Integer.parseInt(series) != exerciseList.get(i).getSeries()) {
@@ -121,8 +122,8 @@ public class DomainController {
 
     public void addRoutine(String routineName, int dayOfTheWeek) throws InsertErrorThrowable {
         Routine routine = new Routine(routineName,dayOfTheWeek);
-        routinesList.add(routine);
         persistenceManager.putRoutine(routine);
+        routinesList.add(routine);
     }
 
     public void assignExercises(String routineName, List<String> assignedExerciseNamesList) {
@@ -150,15 +151,15 @@ public class DomainController {
         persistenceManager.updateRoutineDayOfTheWeek(routineName,newDay);
     }
 
-    public void setRoutineName(String oldName, String newName) {
+    public void setRoutineName(String oldName, String newName) throws NameAlreadyExistsThrowable {
         int i = -1;
         String auxName;
         do {
             ++i;
             auxName = routinesList.get(i).getName();
         } while(i+1 < routinesList.size() && (!oldName.equals(auxName)));
-        routinesList.get(i).setName(newName);
         persistenceManager.updateRoutineName(oldName,newName);
+        routinesList.get(i).setName(newName);
     }
 
     public void deleteAssignedExercises(String routineName) {

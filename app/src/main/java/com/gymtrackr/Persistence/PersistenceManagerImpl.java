@@ -7,6 +7,7 @@ import android.util.Pair;
 import com.gymtrackr.Domain.Exercise;
 import com.gymtrackr.Domain.Routine;
 import com.gymtrackr.Throwables.InsertErrorThrowable;
+import com.gymtrackr.Throwables.NameAlreadyExistsThrowable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class PersistenceManagerImpl implements PersistenceManager {
     }
 
     @Override
-    public void updateRoutineName(String oldName, String newName) {
+    public void updateRoutineName(String oldName, String newName) throws NameAlreadyExistsThrowable {
         mySQLiteOpenHelper.updateRoutineName(oldName,newName);
     }
 
@@ -53,7 +54,7 @@ public class PersistenceManagerImpl implements PersistenceManager {
     }
 
     @Override
-    public void updateExerciseName(String oldName, String newName) {
+    public void updateExerciseName(String oldName, String newName) throws NameAlreadyExistsThrowable {
         mySQLiteOpenHelper.updateExerciseName(oldName, newName);
     }
 
@@ -98,7 +99,7 @@ public class PersistenceManagerImpl implements PersistenceManager {
     @Override
     public void putExerciseDone(String name,String repetitions, String series, String weight)
             throws InsertErrorThrowable {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
         Date date = new Date();
         System.out.println("DATE: " + sdf.format(date));
         mySQLiteOpenHelper.putDoneExercise(name,sdf.format(date),repetitions,series,weight);

@@ -16,8 +16,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gymtrackr.Domain.DomainController;
+import com.gymtrackr.Throwables.NameAlreadyExistsThrowable;
 
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class ShowRoutineActivity extends AppCompatActivity {
 
         System.out.println(routineName);
 
-        List<String> rawRoutine = DomainController.getInstance().getRoutineInformation(routineName);
+        final List<String> rawRoutine = DomainController.getInstance().getRoutineInformation(routineName);
 
         routineNameField = findViewById(R.id.etRoutineName);
         routineNameField.setText(routineName);
@@ -92,7 +94,14 @@ public class ShowRoutineActivity extends AppCompatActivity {
                 }
                 else {
                     editButton.setImageResource(R.drawable.ic_action_edit);
-                    DomainController.getInstance().setRoutineName(routineName, routineNameField.getText().toString());
+                    try {
+                        DomainController.getInstance().setRoutineName(routineName, routineNameField.getText().toString());
+                    } catch (NameAlreadyExistsThrowable nameAlreadyExistsThrowable) {
+                        nameAlreadyExistsThrowable.printStackTrace();
+                        routineNameField.setText(routineName);
+                        Toast.makeText(GymTrackr.getContext(),GymTrackr.getContext().getResources().
+                                getString(R.string.repeteated_exercise_name), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
