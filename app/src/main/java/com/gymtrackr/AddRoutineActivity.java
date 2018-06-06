@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.gymtrackr.Domain.DomainController;
+import com.gymtrackr.Throwables.InsertErrorThrowable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,12 +62,19 @@ public class AddRoutineActivity extends AppCompatActivity {
                 }
 
                 int dayOfTheWeek = spinner.getSelectedItemPosition();
-                DomainController.getInstance().addRoutine(routineName,dayOfTheWeek);
-                DomainController.getInstance().assignExercises(routineName, finalAssignedExerciseNamesList);
+                try {
+                    DomainController.getInstance().addRoutine(routineName,dayOfTheWeek);
 
-                Intent intent = new Intent(GymTrackr.getContext(),MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                    DomainController.getInstance().assignExercises(routineName, finalAssignedExerciseNamesList);
+
+                    Intent intent = new Intent(GymTrackr.getContext(),MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                } catch (InsertErrorThrowable insertErrorThrowable) {
+                    insertErrorThrowable.printStackTrace();
+                    Toast.makeText(GymTrackr.getContext(),GymTrackr.getContext().getResources().
+                            getString(R.string.repeteated_routine_name), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

@@ -33,14 +33,10 @@ public class DomainController {
         return myDomainController;
     }
 
-    public void addExercise(String name, int series, int repetitions, ArrayList<String> muscles) {
+    public void addExercise(String name, int series, int repetitions, ArrayList<String> muscles) throws InsertErrorThrowable {
         Exercise exercise = new Exercise(name, series, repetitions);
         exercise.setMuscles(muscles);
-        try {
-            persistenceManager.putExercise(exercise);
-        } catch (InsertErrorThrowable insertErrorThrowable) {
-            insertErrorThrowable.printStackTrace();
-        }
+        persistenceManager.putExercise(exercise);
         exerciseList.add(exercise);
         Collections.sort(exerciseList, new Comparator<Exercise>() {
             @Override
@@ -123,14 +119,10 @@ public class DomainController {
         return rawRoutine;
     }
 
-    public void addRoutine(String routineName, int dayOfTheWeek) {
+    public void addRoutine(String routineName, int dayOfTheWeek) throws InsertErrorThrowable {
         Routine routine = new Routine(routineName,dayOfTheWeek);
         routinesList.add(routine);
-        try {
-            persistenceManager.putRoutine(routine);
-        } catch (InsertErrorThrowable insertErrorThrowable) {
-            insertErrorThrowable.printStackTrace();
-        }
+        persistenceManager.putRoutine(routine);
     }
 
     public void assignExercises(String routineName, List<String> assignedExerciseNamesList) {

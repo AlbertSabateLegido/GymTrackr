@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.gymtrackr.Domain.DomainController;
+import com.gymtrackr.Throwables.InsertErrorThrowable;
 
 import java.util.ArrayList;
 
@@ -56,8 +58,14 @@ public class AddExerciseActivity extends AppCompatActivity {
                 for (CheckBox muscle: muscleGroups) {
                     if (muscle.isChecked()) muscles.add(muscle.getText().toString());
                 }
-                domainController.addExercise(name, series, reps, muscles);
-                finish();
+                try {
+                    domainController.addExercise(name, series, reps, muscles);
+                    finish();
+                } catch (InsertErrorThrowable insertErrorThrowable) {
+                    insertErrorThrowable.printStackTrace();
+                    Toast.makeText(GymTrackr.getContext(),GymTrackr.getContext().getResources().
+                            getString(R.string.repeteated_exercise_name), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
