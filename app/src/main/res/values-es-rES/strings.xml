@@ -37,7 +37,7 @@
     <string name="toast_name_changed">El nombre del ejercicio se ha actualizado correctamente!</string>
     <string name="label_exercise_name">Nombre del ejercicio:</string>
     <string name="label_exercise_series">Series:</string>
-    <string name="label_exercise_repetitions">Series:</string>
+    <string name="label_exercise_repetitions">Repeticiones:</string>
     <string name="label_exercise_muscles">Grupos musculares involucrados:</string>
     <string name="button_delete">Borrar</string>
     <string name="action_start_routine">Empezar rutina</string>
