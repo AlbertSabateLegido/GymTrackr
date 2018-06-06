@@ -172,6 +172,17 @@ public class DomainController {
         persistenceManager.deleteJRE(routineName);
     }
 
+    public void deleteExercise(String exerciseName) {
+        persistenceManager.deleteExercise(exerciseName);
+        boolean found = false;
+        int i = 0;
+        while(i < exerciseList.size() && !found) {
+            found = exerciseList.get(i).getName().equals(exerciseName);
+            if (found) exerciseList.remove(i);
+            ++i;
+        }
+    }
+
     public List<String> startRoutine(String routineName) {
         int i = -1;
         String auxName;

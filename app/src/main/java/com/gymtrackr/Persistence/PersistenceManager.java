@@ -37,5 +37,7 @@ public interface PersistenceManager {
 
     void deleteJRE(String routineName);
 
+    void deleteExercise(String exerciseName);
+
     List<Pair<String, Integer>> getExerciseHistory(String name);
 }

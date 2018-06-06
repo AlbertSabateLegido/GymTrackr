@@ -126,6 +126,11 @@ public class PersistenceManagerImpl implements PersistenceManager {
     }
 
     @Override
+    public void deleteExercise(String exerciseName) {
+        mySQLiteOpenHelper.deleteExercise(exerciseName);
+    }
+
+    @Override
     public List<Pair<String, Integer>> getExerciseHistory(String name) {
         List<List<String>> rawExercisesList = mySQLiteOpenHelper.getExerciseHistory(name);
         List<Pair<String, Integer>> pairList = new ArrayList<>();

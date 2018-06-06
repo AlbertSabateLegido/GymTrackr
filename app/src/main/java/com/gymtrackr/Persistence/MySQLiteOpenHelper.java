@@ -286,4 +286,12 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.delete(JRE_TABLE_NAME,JRE_COLUMN_ROUTINE_NAME + "=?",new String[]{routineName});
     }
+
+
+    public void deleteExercise(String exerciseName) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete(EXERCISE_TABLE_NAME,EXERCISE_COLUMN_NAME + "=?", new String[]{exerciseName});
+        sqLiteDatabase.delete(EXERCISE_DONE_TABLE_NAME,EXERCISE_DONE_COLUMN_NAME + "=?", new String[]{exerciseName});
+        sqLiteDatabase.delete(JRE_TABLE_NAME,JRE_COLUMN_EXERCISE_NAME + "=?", new String[]{exerciseName});
+    }
 }

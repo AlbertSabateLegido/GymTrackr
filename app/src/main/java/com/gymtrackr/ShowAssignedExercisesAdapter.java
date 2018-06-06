@@ -19,14 +19,13 @@ public class ShowAssignedExercisesAdapter extends ExercisesAdapter {
         this.routineName = routineName;
     }
 
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    //@Override
+    /*public void onBindViewHolder(MyViewHolder holder, final int position) {
         if (position == 0) {
             holder.tvName.setText("Start Routine");
             holder.ivAction.setImageDrawable(GymTrackr.getContext().getResources().
                     getDrawable(R.drawable.ic_action_workout));
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.
-                    LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.setMarginEnd(16);
             holder.ivAction.setLayoutParams(layoutParams);
             holder.view.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +38,7 @@ public class ShowAssignedExercisesAdapter extends ExercisesAdapter {
             });
         }
         else if (position == 1) {
-            holder.tvName.setText("Add Exercises");
+            /*holder.tvName.setText("Add Exercises");
             holder.ivAction.setImageDrawable(GymTrackr.getContext().getResources().
                     getDrawable(R.drawable.ic_action_link));
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.
@@ -67,11 +66,11 @@ public class ShowAssignedExercisesAdapter extends ExercisesAdapter {
                 }
             });
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public int getItemCount() {
         int listSize = super.getItemCount();
         return listSize+2;
-    }
+    }*/
 }

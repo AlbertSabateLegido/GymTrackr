@@ -3,6 +3,7 @@ package com.gymtrackr;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,8 @@ public class ShowRoutineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_routine);
 
+        getSupportActionBar().hide();
+
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) routineName = bundle.getString(EXTRA_ROUTINE_NAME);
@@ -46,6 +49,7 @@ public class ShowRoutineActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(Integer.valueOf(rawRoutine.get(0)));
+        spinner.setEnabled(false);
         final String finalRoutineName = routineName;
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -72,6 +76,26 @@ public class ShowRoutineActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        CardView cardViewStartRoutine = findViewById(R.id.cardViewStartRoutine);
+        cardViewStartRoutine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GymTrackr.getContext(),RealizeRoutineActivity.class);
+                intent.putExtra(RealizeRoutineActivity.EXTRA_ROUTINE_NAME,routineName);
+                GymTrackr.getContext().startActivity(intent);
+            }
+        });
+        CardView cardViewAssignExercise = findViewById(R.id.cardViewAssignExercise);
+        cardViewAssignExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GymTrackr.getContext(),EditAssignedExercisesActivity.class);
+                intent.putExtra(EditAssignedExercisesActivity.EXTRA_ROUTINE_NAME,routineName);
+                GymTrackr.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     @Override

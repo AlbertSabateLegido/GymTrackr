@@ -12,8 +12,7 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/font_size"
-        android:textColor="@color/black"/>
+        android:textSize="@dimen/font_size"/>
 
     <TextView
         android:id="@+id/dayOfTheWeek"
@@ -21,6 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:textSize="@dimen/font_size"
-        android:textColor="@color/dark_grey"/>
+        android:textColor="@color/light_grey"/>
 
 </RelativeLayout>

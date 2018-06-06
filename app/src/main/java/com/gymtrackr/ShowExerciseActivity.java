@@ -1,6 +1,7 @@
 package com.gymtrackr;
 
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.StaticLayout;
@@ -38,6 +39,7 @@ public class ShowExerciseActivity extends AppCompatActivity {
     EditText exerciseSeriesField;
     EditText exerciseRepetitionsField;
     ImageView editButton;
+    ImageView deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class ShowExerciseActivity extends AppCompatActivity {
 
         // getting the Exercise to be shown name
         Bundle bundle = getIntent().getExtras();
-        String exerciseName;
+        final String exerciseName;
         if(bundle != null) {
             exerciseName = bundle.getString(EXTRA_EXERCISE);
             // getting the Exercise given its name
@@ -147,5 +149,13 @@ public class ShowExerciseActivity extends AppCompatActivity {
             }
         });
 
+        deleteButton = findViewById(R.id.imageViewDelete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DomainController.getInstance().deleteExercise(exerciseNameField.getText().toString());
+                finish();
+            }
+        });
     }
 }
