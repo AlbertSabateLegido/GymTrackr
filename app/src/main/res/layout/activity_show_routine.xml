@@ -27,7 +27,9 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="@android:color/transparent"
                 android:textSize="@dimen/font_size_big"
-                android:text="@string/hint_text_routine_name" />
+                android:text="@string/hint_text_routine_name"
+                android:inputType="textCapSentences"
+                android:singleLine="true"/>
 
             <ImageView
                 android:id="@+id/ivEdit"
@@ -77,6 +79,7 @@
         android:id="@+id/assignedExercisesLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="@color/cardview_light_background"
         android:layout_below="@id/newRoutineLayout"
         android:orientation="vertical">
 
@@ -116,6 +119,7 @@
             android:id="@+id/cardViewAssignExercise"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:backgroundTint="@color/cardview_light_background"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin">

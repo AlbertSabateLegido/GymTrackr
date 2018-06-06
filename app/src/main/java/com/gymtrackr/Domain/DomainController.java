@@ -88,9 +88,6 @@ public class DomainController {
         return null;
     }
 
-    public List<Exercise> getExerciseList() {
-        return exerciseList;
-    }
 
     public List<String> getExerciseNames() {
         List<String> exerciseNames = new ArrayList<>();
@@ -99,14 +96,6 @@ public class DomainController {
         }
         //Collections.sort(exerciseNames);
         return exerciseNames;
-    }
-
-    public String getLastExerciseName() {
-        return exerciseList.get(exerciseList.size()-1).getName();
-    }
-
-    public int getExerciseListSize() {
-        return exerciseList.size();
     }
 
     public List<String> getRoutinesNames() {
@@ -232,9 +221,6 @@ public class DomainController {
         return persistenceManager.getExerciseHistory(exerciseName);
     }
 
-    public String getCurrentRoutineName() {
-        return exerciseList.get(currentRoutine).getName();
-    }
 
     public void finishRoutine() {
         currentRoutine = null;

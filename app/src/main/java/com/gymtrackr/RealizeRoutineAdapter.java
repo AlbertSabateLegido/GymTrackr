@@ -50,7 +50,7 @@ public class RealizeRoutineAdapter extends RecyclerView.Adapter<RealizeRoutineAd
         holder.tvName.setText(exerciseName);
         List<String> rawExerciseInformation = DomainController.getInstance().getExerciseInformation(exerciseName);
         if(rawExerciseInformation.isEmpty()) {
-            holder.tvRepetitionsXSeries.setText("No data stored");
+            holder.tvRepetitionsXSeries.setText(R.string.label_no_data);
         }
         else {
             String concatString = rawExerciseInformation.get(0) + "x" + rawExerciseInformation.get(1);

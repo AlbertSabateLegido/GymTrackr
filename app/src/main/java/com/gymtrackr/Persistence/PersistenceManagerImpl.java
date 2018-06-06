@@ -2,11 +2,9 @@ package com.gymtrackr.Persistence;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.util.Pair;
 
 import com.gymtrackr.Domain.Exercise;
-import com.gymtrackr.Domain.ExerciseDone;
 import com.gymtrackr.Domain.Routine;
 import com.gymtrackr.Throwables.InsertErrorThrowable;
 

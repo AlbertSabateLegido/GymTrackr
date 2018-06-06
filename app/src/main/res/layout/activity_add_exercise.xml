@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,16 +9,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin">
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="@string/label_name"/>
+            android:text="@string/label_name" />
 
         <EditText
             android:id="@+id/editTextExerciseName"
@@ -37,14 +37,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight=".5">
+                android:layout_weight=".5"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:text="@string/label_series"/>
+                    android:text="@string/label_series" />
 
                 <EditText
                     android:id="@+id/editTextExerciseSeries"
@@ -52,22 +52,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:ems="10"
-                    android:inputType="number"
-                    android:hint="@string/hint_series" />
+                    android:hint="@string/hint_series"
+                    android:inputType="number" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight=".5">
+                android:layout_weight=".5"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:text="@string/label_repetitions"/>
+                    android:text="@string/label_repetitions" />
 
                 <EditText
                     android:id="@+id/editTextExerciseRepetitions"
@@ -75,18 +75,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:ems="10"
-                    android:inputType="number"
-                    android:hint="@string/hint_repetitions" />
+                    android:hint="@string/hint_repetitions"
+                    android:inputType="number" />
 
             </LinearLayout>
 
         </LinearLayout>
-        
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="@string/label_muscle"/>
+            android:text="@string/label_muscle" />
 
         <TableLayout
             android:layout_width="match_parent"
@@ -100,33 +100,37 @@
                     android:id="@+id/checkBoxChest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:text="@string/muscle_chest" />
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="@string/muscle_chest"
+                    android:textColor="@color/light_grey" />
 
                 <CheckBox
                     android:id="@+id/checkBoxBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:text="@string/muscle_back" />
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="@string/muscle_back"
+                    android:textColor="@color/light_grey" />
 
                 <CheckBox
                     android:id="@+id/checkBoxShoulder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:text="@string/muscle_shoulder" />
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="@string/muscle_shoulder"
+                    android:textColor="@color/light_grey" />
 
                 <CheckBox
                     android:id="@+id/checkBoxLegs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:text="@string/muscle_legs" />
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="@string/muscle_legs"
+                    android:textColor="@color/light_grey" />
             </TableRow>
 
             <TableRow
@@ -137,41 +141,41 @@
                     android:id="@+id/checkBoxBiceps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:text="@string/muscle_biceps" />
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="@string/muscle_biceps"
+                    android:textColor="@color/light_grey" />
 
                 <CheckBox
                     android:id="@+id/checkBoxTriceps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:text="@string/muscle_triceps" />
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="@string/muscle_triceps"
+                    android:textColor="@color/light_grey" />
 
                 <CheckBox
                     android:id="@+id/checkBoxAbs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:text="@string/muscle_abs" />
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="@string/muscle_abs"
+                    android:textColor="@color/light_grey" />
             </TableRow>
         </TableLayout>
 
     </LinearLayout>
 
-
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAddExercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:focusable="true"
-        app:srcCompat="@android:drawable/ic_menu_save" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:src="@android:drawable/ic_menu_save" />
+
+</RelativeLayout>

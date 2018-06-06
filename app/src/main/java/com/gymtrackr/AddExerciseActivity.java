@@ -22,7 +22,7 @@ public class AddExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_exercise);
-        getSupportActionBar().setTitle("New exercise");
+        getSupportActionBar().setTitle(getString(R.string.activity_new_exercise));
 
         exerciseName = findViewById(R.id.editTextExerciseName);
         exerciseSeries = findViewById(R.id.editTextExerciseSeries);

@@ -115,12 +115,16 @@ public class ShowExerciseActivity extends AppCompatActivity {
         graph.getGridLabelRenderer().setHorizontalLabelsAngle(90+45-10);
         graph.getGridLabelRenderer().setLabelsSpace(10);
         graph.setTitle(getString(R.string.graph_title));
+        graph.setTitleColor(getResources().getColor(R.color.dark_grey));
         graph.getGridLabelRenderer().setPadding(40);
         graph.getGridLabelRenderer().setVerticalAxisTitle(getString(R.string.graph_axisY));
+        graph.getGridLabelRenderer().setVerticalLabelsColor(getResources().getColor(R.color.dark_grey));
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(getResources().getColor(R.color.dark_grey));
+        graph.getGridLabelRenderer().setVerticalAxisTitleColor(getResources().getColor(R.color.dark_grey));
         series.setSpacing(50);
         // draw values on top
         series.setDrawValuesOnTop(true);
-        series.setValuesOnTopColor(getResources().getColor(R.color.colorAccent));
+        series.setValuesOnTopColor(getResources().getColor(R.color.dark_grey));
         series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
             @Override
             public int get(DataPoint data) {

@@ -12,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.gymtrackr.Domain.DomainController;
-import com.gymtrackr.Domain.Exercise;
 
 import java.util.ArrayList;
 import java.util.List;
