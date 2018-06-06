@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.gymtrackr.Domain.DomainController;
 import com.gymtrackr.Domain.Exercise;
+import com.gymtrackr.Throwables.NameAlreadyExistsThrowable;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LabelFormatter;
@@ -100,7 +101,7 @@ public class ShowExerciseActivity extends AppCompatActivity {
         for (int i= 0; i < Math.min(exerciseInfo.size(),nb_exercises); ++i) {
             int weight = exerciseInfo.get(exerciseInfo.size() - Math.min(exerciseInfo.size(),nb_exercises) + i).second;
             exerciseData[i] = new DataPoint(i, weight);
-            labelsX[i] = exerciseInfo.get(i).first.substring(6,8) + "/" + exerciseInfo.get(i).first.substring(4,6);
+            labelsX[i] = exerciseInfo.get(i).first.substring(5,7) + "/" + exerciseInfo.get(i).first.substring(8,10);
             if (weight > max_weight) max_weight = weight;
         }
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(exerciseData);
@@ -154,10 +155,17 @@ public class ShowExerciseActivity extends AppCompatActivity {
                 }
                 else {
                     editButton.setImageResource(R.drawable.ic_action_edit);
-                    DomainController.getInstance().updateExercise(exercise.getName(),
-                            exerciseNameField.getText().toString(),
-                            exerciseSeriesField.getText().toString(),
-                            exerciseRepetitionsField.getText().toString());
+                    try {
+                        DomainController.getInstance().updateExercise(exercise.getName(),
+                                exerciseNameField.getText().toString(),
+                                exerciseSeriesField.getText().toString(),
+                                exerciseRepetitionsField.getText().toString());
+                    } catch (NameAlreadyExistsThrowable nameAlreadyExistsThrowable) {
+                        nameAlreadyExistsThrowable.printStackTrace();
+                        exerciseNameField.setText(exercise.getName());
+                        Toast.makeText(GymTrackr.getContext(),GymTrackr.getContext().getResources().
+                                getString(R.string.repeteated_exercise_name), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

@@ -3,10 +3,12 @@ package com.gymtrackr.Persistence;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.gymtrackr.Throwables.InsertErrorThrowable;
+import com.gymtrackr.Throwables.NameAlreadyExistsThrowable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,14 +100,18 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public void updateRoutineName(String oldName, String newName) {
+    public void updateRoutineName(String oldName, String newName) throws NameAlreadyExistsThrowable {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(ROUTINE_COLUMN_NAME,newName);
 
-        sqLiteDatabase.update(ROUTINE_TABLE_NAME,contentValues,ROUTINE_COLUMN_NAME + "= ?",
-                new String[]{oldName});
+        try {
+            sqLiteDatabase.update(ROUTINE_TABLE_NAME,contentValues,ROUTINE_COLUMN_NAME + "= ?",
+                    new String[]{oldName});
+        } catch (SQLiteConstraintException e) {
+            throw new NameAlreadyExistsThrowable();
+        }
 
         contentValues = new ContentValues();
         contentValues.put(JRE_COLUMN_ROUTINE_NAME,newName);
@@ -124,14 +130,18 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                 new String[]{routineName});
     }
 
-    public void updateExerciseName(String oldName, String newName) {
+    public void updateExerciseName(String oldName, String newName) throws NameAlreadyExistsThrowable {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(EXERCISE_COLUMN_NAME,newName);
 
-        sqLiteDatabase.update(EXERCISE_TABLE_NAME,contentValues,EXERCISE_COLUMN_NAME + "= ?",
-                new String[]{oldName});
+        try {
+            sqLiteDatabase.update(EXERCISE_TABLE_NAME,contentValues,EXERCISE_COLUMN_NAME +
+                    "= ?", new String[]{oldName});
+        } catch (SQLiteConstraintException e) {
+            throw new NameAlreadyExistsThrowable();
+        }
 
         contentValues = new ContentValues();
         contentValues.put(EXERCISE_DONE_COLUMN_NAME,newName);

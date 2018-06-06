@@ -6,6 +6,7 @@ import com.gymtrackr.Domain.Exercise;
 import com.gymtrackr.Domain.ExerciseDone;
 import com.gymtrackr.Domain.Routine;
 import com.gymtrackr.Throwables.InsertErrorThrowable;
+import com.gymtrackr.Throwables.NameAlreadyExistsThrowable;
 
 import java.util.List;
 
@@ -15,12 +16,14 @@ public interface PersistenceManager {
 
     List<Routine> getRoutines();
 
-    void updateRoutineName(String oldName, String newName);
+    void updateRoutineName(String oldName, String newName) throws NameAlreadyExistsThrowable;
 
     void updateRoutineDayOfTheWeek(String finalRoutineName, int i);
 
-    void updateExerciseName(String oldName, String newName);
+    void updateExerciseName(String oldName, String newName) throws NameAlreadyExistsThrowable;
+
     void updateExerciseSeries(String name, String newSeries);
+
     void updateExerciseRepetitions(String name, String newReps);
 
     void putExercise(Exercise exercise) throws InsertErrorThrowable;
