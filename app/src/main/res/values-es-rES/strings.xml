@@ -17,7 +17,7 @@
     <string name="label_name">¿Como quieres llamar a este ejercicio?</string>
     <string name="hint_series">Series</string>
     <string name="label_series">¿Cuántas series?</string>
-    <string name="hint_repetitions">Repeticiones</string>
+    <string name="hint_repetitions">Repeticiones</string>g
     <string name="label_repetitions">¿Cuántas repeticiones?</string>
     <string name="label_day">Día</string>
     <string name="hint_text_routine_name">Nombre de la rutina</string>
